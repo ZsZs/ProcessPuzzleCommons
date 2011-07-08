@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="server.availability" basedir="." default="check">
+	<description>Checks server availability.</description>
+
+	<target name="wait-for-server">
+		<sleep seconds="10" />
+		<waitfor maxwait="${appserver.maxwait}" maxwaitunit="second" timeoutproperty="server.missing">
+			<http url="${application.url}" />
+		</waitfor>
+		<fail if="server.missing">Application ${application.url} or the server is not running.</fail>
+	</target>
+
+	<target name="check" depends="wait-for-server">
+		<echo>Application ${application.url} is available.</echo>
+	</target>
+</project>
+	
+

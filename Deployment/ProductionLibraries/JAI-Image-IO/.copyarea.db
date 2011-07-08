@@ -1,0 +1,7 @@
+ClearCase CopyAreaDB|4
+ProcessPuzzle\Framework\build\ProductionLibraries\JAI-Image-IO
+2
+3
+d:jai_codec.jar|1|11ae9d5f62f|34252|f580d9ec|5efd79b38e5b48f593df5bf787c7243f|0
+f:jai_imageio.jar|1|11ae9d5f7d4|f5eee|9d0de943|f0220951a3ef433faa815abc1018fbcd|0
+c:jai_core.jar|1|11ae9d5f719|180e65|541b79e5|9bc551359ef7484eb7de71f518e08227|0

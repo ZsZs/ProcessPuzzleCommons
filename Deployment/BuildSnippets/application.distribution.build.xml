@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="application.distribution" basedir="." default="distribute" xmlns:ac="antlib:net.sf.antcontrib">
+	<description>Distributes the compiled, tested and packaged application or component.</description>
+
+	<property name="distributed.javascipt.file" value="${component.distribution.path}/${javasript.packaged.file}" />
+	<property name="distributed.war.file" value="${component.distribution.path}/${application.packaged.file}" />
+	
+	<target name="distribute" depends="distribute.javascript, distribute.war"/>
+	
+	<target name="distribute.javascript">
+		<echo>About to distribute ${javasript.packaged.file} JavaScript to ${distributed.javascipt.file}.</echo>
+		
+		<ac:if>
+			<available property="file.to.distribute.exist" file="${distributed.javascipt.file}" type="file" />
+			<ac:then>
+				<cccheckout viewpath="${distributed.javascipt.file}" reserved="true" nowarn="true" comment="Distributed by automatic build." />
+			</ac:then>
+		</ac:if>		
+		<copy preservelastmodified="true" overwrite="true" file="${project.distribution.dir}/${javasript.packaged.file}" tofile="${distributed.javascipt.file}" failonerror="false" />
+		<cccheckin viewpath="${distributed.javascipt.file}" identical="true" preservetime="true" nowarn="true" />
+	</target>
+	
+	<target name="distribute.war">
+		<echo>About to distribute ${application.packaged.file} JavaScript to ${distributed.war.file}.</echo>
+		
+		<ac:if>
+			<available property="file.to.distribute.exist" file="${distributed.war.file}" type="file" />
+			<ac:then>
+				<cccheckout viewpath="${distributed.war.file}" reserved="true" nowarn="true" comment="Distributed by automatic build." />
+			</ac:then>
+		</ac:if>		
+		<copy preservelastmodified="true" overwrite="true" file="${project.distribution.dir}/${distributed.war.file}" tofile="${distributed.war.file}" failonerror="false" />
+		<cccheckin viewpath="${distributed.war.file}" identical="true" preservetime="true" nowarn="true" />
+	</target>
+</project>
+

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="application.packaging" basedir="." default="package">
+	<description>Packages compiled, tested web application.</description>
+
+	<target name="gather.libraries">
+		<echo>About to package ${application.packaged.file} application.</echo>
+
+		<copy todir="${project.production.library.dir}" flatten="true">
+			<path refid="project.auxiliary.classpath" />
+		</copy>
+		
+		<!--
+		<copy todir="${project.development.library.dir}">
+			<fileset refid="${project.development.library.path}" />
+		</copy>
+		-->
+		
+		<!-- jstl.jar and servlet-api.jar are standard part of the application server -->
+		<!--
+		<delete file="${project.production.library.dir}/jstl-1.2.jar"/>
+		<delete file="${project.production.library.dir}/servlet-api.jar"/>
+		-->
+	</target>
+	
+	<target name="package" depends="gather.libraries">
+		
+	    <tstamp>
+	        <format property="TODAY" pattern="yyyy-MM-dd HH:mm:ss" />
+	    </tstamp>
+		
+	    <buildnumber file="${project.build.dir}/build.num"/> <!-- let ANT auto increment a build number -->
+		
+		<war destfile="${project.distribution.dir}/${application.packaged.file}" webxml="${web.project.discriptor.dir}/web.xml" duplicate="fail">
+			
+			<fileset dir="${web.project.pages.dir}" >
+				<exclude name="**/*.copyarea.db" />
+				<exclude name="**/*.bak" />
+			</fileset>
+			
+			<classes dir="${project.production.classes.dir}" />
+			
+			<lib dir="${project.production.library.dir}" />
+			
+	        <manifest>
+	            <attribute name="Built-By" value="IT Codex Llc."/>
+	            <attribute name="Implementation-Version"  value="${component.version}-build${build.number}"/>
+	            <attribute name="Built-Date" value="${TODAY}"/>
+	        </manifest>		
+		</war>
+		
+	</target>
+</project>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="start-stop.tomcat" basedir="." default="tomcat-start">
+	<description>Starts or stops Apache Tomcat.</description>
+	
+	<target name="tomcat-start">
+		<exec executable="net">
+			<arg line="start Tomcat6" />
+		</exec>
+	</target>
+	
+	<target name="tomcat-stop">
+		<exec executable="net">
+			<arg line="stop Tomcat6" />
+		</exec>
+	</target>
+</project>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="testdistribute" basedir="." default="all">
+	<description>Tests the distribution.build.xml and snippet.</description>
+	
+	<property file="common.build.properties" />
+	<property name="component.packaged.file" value="tesztfile.txt" />
+	<property name="component.distribution.path" location="." />
+		
+	<import file="java.archive.build.xml"/>
+	<import file="distribution.build.xml"/>
+
+	<target name="all" depends="distribute" />
+	
+	<target name="distribute" depends="package, component.distribution.distribute" description="Distribute packaged component." />
+	
+	<target name="package" depends="component.packaging.package" description="Package compiled and tested component." />
+</project>

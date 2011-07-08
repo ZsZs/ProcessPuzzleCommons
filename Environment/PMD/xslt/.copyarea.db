@@ -1,0 +1,19 @@
+ClearCase CopyAreaDB|4
+ProcessPuzzle\Environment\PMD\xslt
+2
+f
+19:pmd-report-per-class.xslt|1|111bf45bbe8|1458|2fc580e5|febd7510cd144dd289168a5058ca39e9|0
+f:pmd-report.xslt|1|111bf45bbca|c9f|f6f2cc40|877db0670b96423e961e30646707406a|0
+c:cpdhtml.xslt|1|111bf45bae4|eec|772a8088|4125af5d35b74a73a9487343285913e4|0
+e:arrow_down.gif|1|111bf45ba62|83|864d2ef1|c1c741a985ea4c8fb641d714f8aced75|0
+12:wz-pmd-report.xslt|1|111bf45bc24|122c|672dda64|8a49e34741d74bcd94c5fac2aaa41138|0
+d:fcoltable.css|1|111bf45baf8|524|87e8a7b3|9983b9e8f99a43af94f265d29d67aa8c|0
+f:only-prio1.xslt|1|111bf45bb48|1303|ad52141f|93fb781946774e6f826b24be17201b8f|0
+f:only-prio2.xslt|1|111bf45bb5c|1303|12a51429|6ef1e60ce0334b00b6096a05eda78220|0
+c:sorttable.js|1|111bf45bc06|18cd|34a2aec9|7df47cd5f01448bca85c9b908e90229f|0
+c:arrow_up.gif|1|111bf45ba94|82|87e83020|b4abf7e845224bba92065314a04d52f5|0
+f:only-prio3.xslt|1|111bf45bb7a|1303|6fb01432|1574dab95c844c318335605775ed62c7|0
+f:only-prio4.xslt|1|111bf45bb98|1303|dd2d143d|1d8ea231408f4b81941c1fb56e35b018|0
+f:only-prio5.xslt|1|111bf45bbac|1303|3ae61446|09a7c60dcaab4ba3a6fe9fce56332724|0
+16:corley-pmd-report.xslt|1|111bf45bab2|17db|2cd78d40|d602632a18e2412c9eb74d5e49df5f09|0
+c:fcoltable.js|1|111bf45bb20|6f2|58a7379a|0d9e50b5e33b4862905fe2f93b8e599f|0

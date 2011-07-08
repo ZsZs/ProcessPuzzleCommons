@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="install.library" basedir="." default="install" xmlns:ac="antlib:net.sf.antcontrib">
+	<description>Installs application's dependent libraries for production.</description>
+	
+	<target name="install" depends="install-by-copy" >
+		<echo>Install dependent libraries: ${application.install.libraries}</echo>
+	</target>
+	
+	<target name="install-by-copy">
+		<ac:if>
+			<istrue value="${application.install.libraries}" />
+			<ac:then>
+				<copy todir="${appserver.library.dir}" flatten="true" overwrite="true">
+					<path refid="processpuzzle.production.classpath" />
+				</copy>
+				<echo>Application's: ${application.url} dependent libraries are installed to ${appserver.library.dir}.</echo>
+			</ac:then>
+		</ac:if>		
+	</target>
+	
+</project>

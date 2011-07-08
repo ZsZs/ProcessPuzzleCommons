@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="component.packaging" basedir="." default="package">
+	<description>Packages compiled, tested application or component.</description>
+	
+	<target name="package">
+		<echo>About to package ${component.packaged.file} component.</echo>
+		
+	    <tstamp>
+	        <format property="TODAY" pattern="yyyy-MM-dd HH:mm:ss" />
+	    </tstamp>
+		
+	    <buildnumber file="${project.build.dir}/build.num"/> <!-- let ANT auto increment a build number -->
+		
+		<jar destfile="${project.distribution.dir}/${component.packaged.file}" duplicate="fail" >
+			
+			<fileset dir="${project.production.classes.dir}" />
+			<fileset dir="${project.production.sources.dir}" />
+			
+			<fileset dir="${project.test.classes.dir}" />
+			<fileset dir="${project.test.sources.dir}" />
+			
+	        <manifest>
+	            <attribute name="Built-By" value="IT Codex Llc."/>
+	            <attribute name="Implementation-Version"  value="${component.version}-build${build.number}"/>
+	            <attribute name="Built-Date" value="${TODAY}"/>
+	        </manifest>		
+		</jar>
+		
+		<copy file="${project.distribution.dir}/${component.packaged.file}" tofile="${fitnesse.projects.dir}/${project.name}/${component.packaged.file}" failonerror="false"/>
+	</target>
+</project>

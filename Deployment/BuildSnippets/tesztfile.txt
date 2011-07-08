@@ -1,0 +1,1 @@
+Tesztfájl a ANT ClearCase check-in /-out-jához!

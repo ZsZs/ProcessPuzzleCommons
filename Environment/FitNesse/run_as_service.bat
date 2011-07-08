@@ -1,0 +1,1 @@
+"c:\Program Files\Windows Resource Kits\Tools\instsrv.exe" FitNesse "c:\Program Files\Windows Resource Kits\Tools\srvany.exe" -a ITKODEX\fitnesse -p proceSspZl43K

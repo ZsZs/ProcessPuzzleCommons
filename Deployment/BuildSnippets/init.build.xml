@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="component.initializing" basedir="." default="init">
+	<description>Creates a new clean environment for the new build.</description>
+	
+	<target name="init">
+		<echo>About to initializing build environment of ${component.packaged.file} component.</echo>
+
+		<delete dir="${project.binary.dir}" />
+		<delete dir="${project.distribution.dir}" />
+		<delete dir="${project.library.dir}" />
+		<delete dir="${project.reports.dir}" />
+		
+ 		<mkdir dir="${project.binary.dir}" />
+ 		<mkdir dir="${project.library.dir}" />
+ 		<mkdir dir="${project.production.library.dir}" />
+ 		<mkdir dir="${project.development.library.dir}" />
+ 		<mkdir dir="${project.production.classes.dir}" />
+ 		<mkdir dir="${project.production.sources.dir}" />
+		<mkdir dir="${project.test.classes.dir}" />
+ 		<mkdir dir="${project.test.sources.dir}" />
+		
+		<mkdir dir="${project.distribution.dir}" />
+		<mkdir dir="${cobertura.instrumented.dir}" />
+		<mkdir dir="${cobertura.coverage.xml.dir}" />
+		<mkdir dir="${cobertura.coverage.html.dir}" />
+		<mkdir dir="${junit.reports.xml.dir}" />
+		<mkdir dir="${junit.reports.html.dir}" />
+		<mkdir dir="${jsunit.reports.dir}/html"/>
+		<mkdir dir="${jsunit.reports.dir}/xml"/>
+		<mkdir dir="${pmd.reports.dir}"/>
+		<mkdir dir="${findbugs.reports.dir}"/>
+		
+	</target>
+
+</project>

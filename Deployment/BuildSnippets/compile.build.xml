@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="component.compiling" basedir="." default="compile">
+	<description>Compiles sources, tests of component.</description>
+	
+	<target name="compile" depends="compile-domainlogic-acceptancetest">
+		<echo>Compilation of ${component.packaged.file} component finished.</echo>
+	</target>
+	
+	<target name="compile-domainlogic-acceptancetest" depends="compile-domainlogic-unit-test">
+		<javac srcdir="${project.acceptancetests.dir}" destdir="${project.test.classes.dir}" debug="true" encoding="Cp1250">
+			<classpath>
+				<path refid="compile.test.classpath" />
+			</classpath>
+		</javac>
+		
+		<copy todir="${project.test.classes.dir}">
+			<fileset dir="${project.acceptancetests.dir}">
+				<patternset refid="source.resources" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="compile-domainlogic-unit-test" depends="compile-domainlogic,cobertura-instrument">
+		<javac srcdir="${project.unittests.dir}" destdir="${project.test.classes.dir}" debug="true" encoding="Cp1250">
+			<classpath refid="compile.test.classpath" />
+		</javac>
+		
+		<copy todir="${project.test.classes.dir}">
+			<fileset dir="${project.unittests.dir}">
+				<patternset refid="source.resources" />
+			</fileset>
+		</copy>
+		
+		<copy todir="${project.test.sources.dir}">
+			<fileset dir="${project.unittests.dir}">
+				<patternset refid="source.files" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="cobertura-instrument" depends="compile-domainlogic">
+		<delete file="${cobertura.data.file}" />
+		<delete file="${cobertura.consolidated.data.file}" />
+		<delete file="${fitnesse.root.dir}/cobertura.ser" />
+		<delete includeemptydirs="true"><fileset dir="${cobertura.instrumented.dir}" includes="**/*"/></delete>
+		<delete includeemptydirs="true" failonerror="false"><fileset dir="${fitnesse.projects.dir}/${project.name}/Cobertura/Instrumented" includes="**/*" /></delete>
+
+		<cobertura-instrument todir="${cobertura.instrumented.dir}" datafile="${cobertura.data.file}">
+			<ignore regex="org.apache.log4j.*" />
+			<ignore regex="com.processpuzzle.document.domain.template.CompositeTemplateElement.get*" />
+			<ignore regex="com.processpuzzle.document.domain.template.diff_match_patch" />
+			<ignore regex="set*" />
+			 
+			 <fileset dir="${project.production.classes.dir}">
+				  <include name="**/*.class" />
+				 
+			 	  <!--
+			 	  <exclude name="**/*Test.class" />
+				  <exclude name="**/*TestSuite.class" />
+				  <exclude name="**/*Fixture.class" /> -->
+				  <exclude name="org/dom4j/**/*.class" />
+			 </fileset>
+		</cobertura-instrument>
+
+		<!-- <copy todir="${fitnesse.projects.dir}/${project.name}/Cobertura/Instrumented" failonerror="false" >
+			<fileset dir="${cobertura.instrumented.dir}" />
+		</copy> -->
+	</target>
+	
+	<target name="compile-domainlogic">
+		<javac srcdir="${project.source.dir}" destdir="${project.production.classes.dir}" debug="true" debuglevel="vars,lines,source" encoding="Cp1250">
+			<classpath refid="compile.production.classpath" />
+		</javac>
+		
+		<copy todir="${project.production.classes.dir}">
+			<fileset dir="${project.source.dir}">
+				<patternset refid="source.resources" />
+			</fileset>
+		</copy>
+		
+		<copy todir="${project.production.sources.dir}">
+			<fileset dir="${project.source.dir}">
+				<patternset refid="source.files" />
+			</fileset>
+		</copy>
+	</target>
+</project>
+

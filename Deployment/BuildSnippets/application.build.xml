@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Build Application" basedir="." default="call-webtier-build">
+
+	<property name="domaintier.build.dir" value="${domaintier.root}/${project.build.dir}" />
+	<property name="domaintier.build.file" value="${domaintier.build.dir}/build.xml" />
+
+	<target name="call-domaintier-build">
+		<ant dir="${domaintier.root}" antfile="${project.build.file}">
+			<property name="project.root" value="" />
+		</ant>
+	</target>
+
+	<target name="call-webtier-build" depends="call-domaintier-build">
+	</target>
+
+</project>

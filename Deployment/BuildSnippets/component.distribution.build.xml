@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="component.distribution" basedir="." default="distribute" xmlns:ac="antlib:net.sf.antcontrib">
+	<description>Distributes the compiled, tested and packaged application or component.</description>
+
+	<property name="component.distribution.location" value="${component.distribution.path}\${component.packaged.file}" />
+	
+	
+	<target name="distribute">
+		<echo>About to distribute ${component.packaged.file} component to ${component.distribution.path}.</echo>
+
+		<ac:if>
+			<available property="file.to.distribute.exist" file="${component.distribution.location}" type="file" />
+			<ac:then>
+				<cccheckout viewpath="${component.distribution.location}" reserved="true" nowarn="true" comment="Distributed by automatic build." />
+			</ac:then>
+		</ac:if>		
+		<copy preservelastmodified="true" overwrite="true" file="${project.distribution.dir}/${component.packaged.file}" tofile="${component.distribution.location}" failonerror="false" />
+		<cccheckin viewpath="${component.distribution.location}" identical="false" preservetime="true" nowarn="true" />
+	</target>
+</project>
+

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="component.testing" basedir="." default="test">
+	<description>Tests compiled component.</description>
+	
+	<target name="test" depends="fitnesse-test">
+		<echo>Testing of ${component.packaged.file} component finished.</echo>
+	</target>
+	
+	<target name="fitnesse-test" description="Run fitnesse acceptance tests." depends="unit-test">
+		<echo>Fitnesse dir: ${fitnesse.root.dir}, Test page: ${fitnesse.testpage}</echo>
+		
+		<java dir="${fitnesse.root.dir}" classname="fitlibrary.batch.FitLibraryRunner" fork="true" resultproperty="FitRegressionResult" >
+			<sysproperty key="net.sourceforge.cobertura.datafile"	value="${cobertura.data.file}" />
+			
+			<arg value="-suiteName"/>
+			<arg value="${fitnesse.testpage}"/>
+			
+			<arg value="-fitNesseDiry"/>
+			<arg value="${fitnesse.root.dir}"/>
+			
+			<arg value="-resultsDiry"/>
+			<arg value="${fitnesse.testresults.dir}"/>
+			
+			<arg value="-port"/>
+			<arg value="9004"/>
+			
+			<arg value="-junitXmlOutput"/>
+			<arg value="${fitnesse.testresults.file}"/>
+			
+			<classpath>
+				<pathelement location="${fitnesse.root.dir}/fitlibrary.jar" />
+				<pathelement location="${fitnesse.root.dir}/fitnesse.jar" />
+				<pathelement location="${cobertura.instrumented.dir}" />
+				<pathelement location="${cobertura.dir}/cobertura.jar" />
+				<pathelement location="${project.test.classes.dir}"/>
+				<path refid="compile.test.classpath" />
+			</classpath>
+		</java>
+		
+		<!-- Relies on FitNesse REST services
+		<java dir="${fitnesse.root.dir}" jar="${fitnesse.root.dir}/fitnesse.jar" output="${component.distribution.dir}/${fitnesse.testresults.file}" fork="true" resultproperty="FitRegressionResult" >
+			<arg value="-c"/>
+			<arg value='"${fitnesse.testpage}?suite&amp;format=xml"'/>
+			<arg value="-l"/>
+			<arg value="${fitnesse.root.dir}/Logs"/>
+		</java>
+		-->
+
+		<!-- fail if any fit test errors -->
+		<!--
+		<condition property="fit-failures">
+			<equals arg1="${FitRegressionResult}" arg2="0" />
+		</condition>
+		<fail message="${FitRegressionResult} Fitnesse test(s) failed."	unless="fit-failures" />
+		-->
+	</target>
+	
+	<target name="unit-test">
+		<echo message="${common.dependent.library.path}"/>
+		<echo message="${project.production.classes.dir}"/>
+		<echo>${project.test.classes.dir}</echo>
+		<echo>${project.unittests.dir}</echo>
+		<echo>${junit.reports.xml.dir}</echo>
+		
+		<junit printsummary="withOutAndErr" haltonfailure="true" fork="yes" maxmemory="512m" failureProperty="unit.test.failed">
+			<!-- Specify the name of the coverage data file to use. -->
+			<sysproperty key="net.sourceforge.cobertura.datafile"	value="${cobertura.data.file}" />
+
+			<classpath location="${cobertura.instrumented.dir}" />
+			<classpath>
+				<path refid="compile.test.classpath" />
+				<pathelement location="${project.test.classes.dir}"/>
+			</classpath>
+			
+			<!-- The instrumented classes reference classes used by the Cobertura runtime, so Cobertura and its dependencies must be on your classpath.	-->
+			<classpath refid="cobertura.classpath" />
+			
+			<formatter type="xml" usefile="true" />
+			
+			<batchtest fork="yes" todir="${junit.reports.xml.dir}">
+				<fileset dir="${project.unittests.dir}">
+					<include name="**/*Test.java"/>
+					<exclude name="**/*TestSuite.java"/>
+					<not><contains text="abstract class"/></not>
+			    </fileset>
+			</batchtest>
+		</junit>
+		
+		<junitreport todir="${junit.reports.xml.dir}">
+			<fileset dir="${junit.reports.xml.dir}">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report format="frames" todir="${junit.reports.html.dir}" />
+		</junitreport>
+	</target>
+</project>

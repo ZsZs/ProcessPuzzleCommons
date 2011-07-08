@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="application.deploy" basedir="." default="deploy">
+	<description>Deploys compiled, packaged web application onto server.</description>
+	
+	<target name="deploy-properties">
+		<property name="source.file" value="${project.distribution.dir}/${application.packaged.file}" />
+		<property name="target.file" value="${appserver.deploy.dir}/${application.deployed.file}" />
+	</target>
+	
+	<target name="deploy-by-copy" depends="deploy-properties">
+		<echo>Deploying ${source.file} to ${target.file} URL: ${application.url}</echo>
+		<copy file="${source.file}" tofile="${target.file}" overwrite="true" />
+	</target>
+	
+	<target name="deploy" depends="deploy-by-copy" />
+</project>

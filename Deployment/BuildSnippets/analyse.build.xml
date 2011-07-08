@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="component.analysis" basedir="." default="analyse">
+	<description>Runs different static and dynamic code analysis and generates report from the result.</description>
+
+	<target name="analyse" depends="pmd">
+		<echo>About to analyse ${component.packaged.file} component.</echo>
+	</target>
+
+	<target name="pmd" depends="findbugs">
+		<pmd shortFilenames="true" targetjdk="1.5">
+			<ruleset>rulesets/favorites.xml</ruleset>
+			<ruleset>basic</ruleset>
+			<ruleset>design</ruleset>
+			<formatter type="xml" toFile="${pmd.reports.dir}/domainlogic-pmd.xml" linkPrefix="http://pmd.sourceforge.net/xref/" />
+			<fileset dir="${project.source.dir}" includes="**/*.java" />
+			<formatter type="html" toFile="${pmd.reports.dir}/domainlogic-pmd.html" linkPrefix="http://pmd.sourceforge.net/xref/" />
+			<fileset dir="${project.source.dir}" includes="**/*.java" />
+		</pmd>
+	</target>
+
+	<target name="findbugs" depends="alternate-coverage-report">
+		<findbugs home="${findbugs.root.dir}" output="xml" outputFile="${findbugs.reports.dir}/domainlogic-fb.xml">
+			<auxClasspath>
+				<path refid="project.auxiliary.classpath" />
+				<path refid="processpuzzle.development.classpath" />
+				<path refid="processpuzzle.production.classpath" />
+			</auxClasspath>
+			<sourcePath path="${project.source.dir}" />
+			<class location="${project.distribution.dir}/${component.packaged.file}" />
+		</findbugs>
+		<findbugs home="${findbugs.root.dir}" output="html" outputFile="${findbugs.reports.dir}/domainlogic-fb.html">
+			<auxClasspath>
+				<path refid="project.auxiliary.classpath" />
+				<path refid="processpuzzle.development.classpath" />
+				<path refid="processpuzzle.production.classpath" />
+			</auxClasspath>
+			<sourcePath path="${project.source.dir}" />
+			<class location="${project.distribution.dir}/${component.packaged.file}" />
+		</findbugs>
+	</target>
+
+	<target name="alternate-coverage-report" depends="coverage-report">
+		<!-- Generate a series of HTML files containing the coverage data in a user-readable form using nested source filesets.	-->
+		<cobertura-report srcdir="${project.source.dir}" destdir="${cobertura.coverage.html.dir}" format="html" datafile="${cobertura.consolidated.data.file}">
+			<fileset dir="${project.source.dir}">
+				<include name="**/*.java"/>
+			</fileset>
+		</cobertura-report>
+	</target>
+
+	<target name="coverage-report" depends="fitnesse-xslt, merge-cobertura-sessions">
+		<!-- Generate an XML file containing the coverage data using the "srcdir" attribute. -->
+		<cobertura-report srcdir="${project.source.dir}" destdir="${cobertura.coverage.xml.dir}" format="xml" datafile="${cobertura.consolidated.data.file}" />
+	</target>
+
+	<target name="merge-cobertura-sessions">
+		<cobertura-merge datafile="${cobertura.consolidated.data.file}">
+			<fileset dir="${cobertura.base.dir}">
+				<include name="cobertura.ser"/>
+			</fileset>
+			<fileset dir="${fitnesse.root.dir}">
+				<include name="cobertura.ser"/>
+			</fileset>
+		</cobertura-merge>
+	</target>
+
+	<target name="fitnesse-xslt">
+		<echo>Transforming FitNesse test results to HTML is temporary omitted, while FitNesse Rest response contains none XML content too.</echo>
+		<!--
+		<xslt basedir="${component.distribution.dir}/${fitnesse.testresults.dir}" destdir="${project.distribution.dir}" extension=".html" style="${fitnesse.xslt.dir}/fitnesse-html.xsl" />
+		<xslt basedir="${component.distribution.dir}/${fitnesse.testresults.dir}" destdir="${project.distribution.dir}" extension=".xml" style="${fitnesse.xslt.dir}/fitnesse-junit.xsl" />
+		-->
+	</target>
+
+</project>

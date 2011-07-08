@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="application.undeploy" basedir="." default="undeploy">
+	<description>Undeploys web application from server.</description>
+	
+	<target name="undeploy" depends="wait-for-undeploy">
+		<echo>Application ${application.url} is undeployed.</echo>
+	</target>
+
+	<target name="undeploy-properties">
+		<property name="target.file" value="${appserver.deploy.dir}/${application.deployed.file}" />
+	</target>
+	
+	<target name="undeploy-by-delete" depends="undeploy-properties">
+		<echo>Undeploying ${target.file} from URL: ${application.url}</echo>
+		<delete file="${target.file}" />
+	</target>
+
+	<target name="wait-for-undeploy" depends="undeploy-by-delete">
+		<waitfor maxwait="30" maxwaitunit="second">
+			<not><http url="${application.url}" /></not>
+		</waitfor>
+	</target>
+</project>

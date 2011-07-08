@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Build Web Tier" basedir="." default="all">
+
+	<property environment="env" />
+	<property name="component.distribution.path" value="${distribution.base.path}/${component.distribution.dir}" />
+	<property name="component.packaged.file" value="${component.name}-${component.version}.${component.package.extension}" />
+	<property name="application.packaged.file" value="${application.name}-${component.version}.${application.package.extension}" />
+	<property name="application.deployed.file" value="${application.name}.${application.package.extension}" />
+	<property name="application.url" value="${appserver.url}/${application.name}" />
+
+	<echo>JavaScript directory: ${web.project.javascript.dir}</echo>
+	
+	<patternset id="source.files">
+		<include name="**/*.java" />
+	</patternset>
+	
+	<patternset id="source.resources">
+		<include name="**/*.xml" />
+		<include name="**/*.xsd" />
+		<include name="**/*.properties" />
+		<include name="**/*.java.template" />
+		<exclude name="**/*.copyarea.db" />
+	</patternset>
+	
+	<path id="processpuzzle.development.classpath">
+		<fileset dir="${common.dependent.library.path}/DevelopmentLibraries">
+			<include name="**/*.jar" />
+			<exclude name="**/*.copyarea.db" />
+		</fileset>
+	</path>
+	
+	<path id="processpuzzle.production.classpath">
+		<fileset dir="${common.dependent.library.path}/ProductionLibraries">
+			<include name="**/*.jar" />
+			<exclude name="**/*.copyarea.db" />
+		</fileset>
+	</path>
+	
+	<path id="processpuzzle.distribution.classpath">
+		<fileset dir="${common.dependent.library.path}/Distribution/ProcessPuzzle">
+			<include name="**/*.jar" />
+			<exclude name="**/*.copyarea.db" />
+		</fileset>
+	</path>
+	
+	<path id="cobertura.classpath">
+		<fileset dir="${cobertura.dir}">
+			<include name="cobertura.jar" />
+			<include name="lib/**/*.jar" />
+			<exclude name="**/*.copyarea.db" />
+		</fileset>
+	</path>
+
+	<path id="fitnesse.classpath">
+		<fileset dir="${fitnesse.root.dir}">
+			<include name="fitnesse.jar" />
+			<include name="**/lib/*.jar" />
+			<exclude name="**/*.copyarea.db" />
+		</fileset>
+		<fileset dir="${project.library.dir}">
+			<include name="**/*.jar" />
+			<exclude name="**/*.copyarea.db" />
+		</fileset>
+	</path>
+	
+	<path id="findbugs.classpath">
+		<fileset dir="${findbugs.root.dir}">
+			<include name="lib/findbugs-ant.jar" />
+			<exclude name="**/*.copyarea.db" />
+		</fileset>
+	</path>
+
+	<path id="pmd.classpath">
+		<fileset dir="${pmd.root.dir}">
+			<include name="lib/pmd-4.2.5.jar" />
+			<exclude name="**/*.copyarea.db" />
+		</fileset>
+	</path>
+	
+	<path id="compile.production.classpath">
+		<path refid="processpuzzle.production.classpath"/>
+		<path refid="processpuzzle.development.classpath"/>
+		<path refid="project.auxiliary.classpath"/>
+	</path>
+	
+	<path id="compile.test.classpath">
+		<path refid="compile.production.classpath"/>
+		<pathelement location="${project.production.classes.dir}" />
+	</path>
+
+	<taskdef classpathref="cobertura.classpath" resource="tasks.properties" />
+	<taskdef name="findbugs" classpathref="findbugs.classpath" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" />
+	<taskdef name="pmd" classpathref="pmd.classpath" classname="net.sourceforge.pmd.ant.PMDTask" />
+
+	<!-- Web Tier Build -->
+	<import file="init.build.xml"/>
+	<import file="install.library.build.xml"/>
+	<import file="compile.build.xml"/>
+	<import file="java.archive.build.xml"/>
+	<import file="component.test.build.xml"/>
+	<import file="web.archive.build.xml"/>
+	<import file="start-stop-tomcat.xml"/>
+	<import file="undeploy.build.xml"/>
+	<import file="deploy.build.xml"/>
+	<import file="server.availability.build.xml"/>
+	<import file="javascript.test.build.xml"/>
+	<import file="javascript.archive.build.xml"/>
+	<import file="application.test.build.xml"/>
+	<import file="analyse.build.xml"/>
+	<import file="application.distribution.build.xml"/>
+		
+	<target name="all" depends="distribute" />
+		
+	<target name="init" depends="component.initializing.init" description="Initializes build environment." />
+	<target name="install" depends="init, install.library.install" description="Installs app's dependent libraries." />
+	<target name="compile" depends="install, component.compiling.compile" description="Compiles sources." />
+	<target name="java.archive" depends="compile, component.packaging.package" description="Package java component." />
+	<target name="web.archive" depends="java.archive, application.packaging.package" description="Package web application." />
+	<target name="undeploy" depends="web.archive, application.undeploy.undeploy" description="Undeploy previous version." />
+<!--	
+	<target name="stop.tomcat" depends="undeploy, start-stop.tomcat.tomcat-stop" description="Stops Tomcat." />
+	<target name="start.tomcat" depends="stop.tomcat, start-stop.tomcat.tomcat-start" description="Starts Tomcat." />
+-->
+	<target name="deploy" depends="undeploy, application.deploy.deploy" description="Deploy web application." />
+	<target name="server.availability" depends="deploy, server.availability.check" description="Checks if application is available on server." />
+<!--
+	<target name="javascript.test" depends="server.availability, javascript.testing.test" description="Test JavaScrips." />
+-->
+	<target name="javascript.archive" depends="server.availability, javascript.archive.archive" description="Concatenates and compressies JavaScrips." />
+	<target name="application.test" depends="javascript.archive, application.testing.test" description="Test the complete, deployed application." />
+	<target name="test" depends="application.test, component.testing.test" description="Test component." />
+	<target name="analyse" depends="test, component.analysis.analyse" description="Analyse component." />
+	<target name="distribute" depends="analyse, application.distribution.distribute" description="Distribute packaged component." />
+	
+	<target name="nooperation">
+		<echo>web.tier.build</echo>
+	</target>
+</project>
