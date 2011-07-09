@@ -1,309 +1,116 @@
 <cruisecontrol>
-	<property name="CCL_HOME" value="c:\Program Files\CruiseControl" />
-	<property name="ANT_HOME" value="c:\apache-ant-1.8.1" />
-	<property name="VIEW_PATH" value="c:\CCViews\cruisecontrol_view" />
-	<property name="PP_HOME" value="${VIEW_PATH}\ProcessPuzzle\Framework" />
-	<property name="IPA_HOME" value="${VIEW_PATH}\ITKodex\Projects\IPA" />	
-	<property name="ENYV_HOME" value="${VIEW_PATH}\ITKodex\Projects\ENYV" />	
-	<property name="COMMONS_HOME" value="${VIEW_PATH}\ITKodex\Projects\Commons" />
-	<property name="LITEST_HOME" value="${VIEW_PATH}\ITKodex\Projects\LiTest" />
-	<property name="ANT_TASK_HOME" value="${VIEW_PATH}\ProcessPuzzle\Environment\ANT" />
-	<property name="ICEUP-ADMIN_HOME" value="${VIEW_PATH}\ITKodex\Projects\ING\ICEUP-Admin" />
-	<property name="TMC_HOME" value="${VIEW_PATH}\ITKodex\Projects\ISH\TMC" />
+   <property name="VIEW_PATH" value="c:\Repositories" />
+   <property name="CCL_HOME" value="c:\CruiseControl" />
+   <property name="ANT_HOME" value="c:\apache-ant-1.8.2" />
+   <property name="ANT_TASK_HOME" value="${VIEW_PATH}\ProcessPuzzle\Environment\ANT" />
+   <property name="BUILD_PUZZLE_HOME" value="${VIEW_PATH}\BuildPuzzle" />
+   <property name="LITEST_HOME" value="${VIEW_PATH}\LiTest" />
+   <property name="PP_COMMONS_HOME" value="${VIEW_PATH}\ProcessPuzzleCommons" />
+   <property name="PP_FRAMEWORK_HOME" value="${VIEW_PATH}\ProcessPuzzleFramework" />
+   <property name="PP_UI_HOME" value="${VIEW_PATH}\ProcessPuzzleUI" />
 
-	<property name ="view.root.path" value="${VIEW_PATH}" />
-	
-	<property file="${VIEW_PATH}\ProcessPuzzle\Environment\ANT\Scripts\common.build.properties" />
-	
-    <project name="ProcessPuzzle" >
-		<property name="Project_Root_Directory" value="${PP_HOME}" />
-		<property name="Project_Build_Directory" value="${Project_Root_Directory}/Build" />
-		<property name="Project_Distribution_Directory" value="${Project_Root_Directory}/FrameworkWebTier/Build/Distribution" />
-		<property name="Project_Reports_Directory" value="${Project_Root_Directory}/FrameworkWebTier/Build/Reports" />
+   <property name ="view.root.path" value="${VIEW_PATH}" />
+   
+   <property file="${VIEW_PATH}\ProcessPuzzle\Environment\ANT\Scripts\common.build.properties" />
+   
+   <plugin name="htmlemail" 
+      mailhost="smtp.gmail.com"
+      username="processpuzzle@gmail.com"
+      password="ProcessPuzzle4Ever"
+      returnaddress="processpuzzle@gmail.com" 
+      returnname="CruiseControl" 
+      failasimportant="true"
+      skipusers="false"
+      subjectprefix="CruiseControl:" 
+      xsldir="${CCL_HOME}/webapps/cruisecontrol/xsl/" 
+      css="${CCL_HOME}/webapps/cruisecontrol/css/cruisecontrol.css">
+      
+      <always address="zsolt.zsuffa@gmail.com"/>
+      <map alias="peter.krima" address="peter.krima@itkodex.hu" />
+   </plugin>
+   
+   <plugin name="project">
+      <property name="Project_Root_Directory" value="${VIEW_PATH}/${project.name}/Implementation" />
+      <property name="Project_Build_Directory" value="${Project_Root_Directory}/Build" />
+      
+      <property name="Project_Domain_Build_Directory" value="${Project_Root_Directory}/DomainTier/Build" />
+      <property name="Project_Domain_Distribution_Directory" value="${Project_Domain_Build_Directory}/Distribution" />
+      <property name="Project_Domain_Reports_Directory" value="${Project_Domain_Build_Directory}/Reports" />
+      <property name="Project_Domain_FitNesse_Directory" value="${fitnesse.testresults.dir}/${project.name}.DocumentsAndTests.DomainLogic" />
+      
+      <property name="Project_Web_Build_Directory" value="${Project_Root_Directory}/WebTier/Build" />
+      <property name="Project_Web_Distribution_Directory" value="${Project_Web_Build_Directory}/Distribution" />
+      <property name="Project_Web_Reports_Directory" value="${Project_Web_Build_Directory}/Reports" />
+      <property name="Project_Web_FitNesse_Directory" value="${fitnesse.testresults.dir}/${project.name}.DocumentsAndTests.UseCases" />
 
-        <listeners>
-            <currentbuildstatuslistener file="logs/${project.name}/status.txt"/>
-        </listeners>
+      <property file="${Project_Domain_Build_Directory}\component.properties"/>
+      <property file="${Project_Web_Build_Directory}\component.properties" />
+      
+      <listeners>
+         <currentbuildstatuslistener file="logs/${project.name}/status.txt"/>
+      </listeners>
 
-        <modificationset>
-			<clearcase branch="main" viewpath="${PP_HOME}/FrameworkDomainTier/" recursive="true" />
-			<clearcase branch="main" viewpath="${PP_HOME}/DomainComponents/" recursive="true" />
-			<clearcase branch="main" viewpath="${PP_HOME}/FrameworkWebTier/" recursive="true" />
-        </modificationset>
+      <modificationset>
+         <filesystem folder="${Project_Root_Directory}/Implementation/DomainTier/"/>
+         <filesystem folder="${Project_Root_Directory}/Implementation/WebTier/"/>
+      </modificationset>
 
-        <bootstrappers>
-        </bootstrappers>
+      <bootstrappers>
+         <gitbootstrapper localWorkingCopy="${Project_Root_Directory}" />
+      </bootstrappers>
 
-        <schedule interval="7200">
-            <ant anthome="${ANT_HOME}" uselogger="true" usedebug="false" buildfile="${PP_HOME}/build/build.xml" />
-        </schedule>
+      <schedule interval="7200">
+         <ant anthome="${ANT_HOME}" uselogger="true" usedebug="false" buildfile="${Project_Build_Directory}/build.xml" />
+      </schedule>
 
-        <log dir="logs/${project.name}">
- 				<merge file="${Project_Reports_Directory}/JUnit/xml/TESTS-TestSuites.xml" />
- 				<merge file="${Project_Reports_Directory}/JSUnit/xml/TESTS-TestSuites.xml" />
-				<merge dir="${Project_Reports_Directory}/Cobertura/reports"/>
-				<merge dir="${Project_Reports_Directory}" pattern="*-pmd.xml"/>
-				<merge dir="${Project_Reports_Directory}" pattern="*-fb.xml"/>
-				<merge dir="${Project_Reports_Directory}" pattern="*-pmd.html"/>
-				<merge dir="${Project_Reports_Directory}" pattern="*-fb.html"/>
-				<merge file="${fitnesse.testresults.file}"/>
-        </log>
+      <log dir="logs/${project.name}">
+         <merge file="${Project_Web_Reports_Directory}/JUnit/xml/TESTS-TestSuites.xml" />
+         <merge file="${Project_Web_Reports_Directory}/JsUnit/xml/TESTS-TestSuites.xml" />
+         <merge dir="${Project_Web_Reports_Directory}/Cobertura/reports"/>
+         <merge dir="${Project_Web_Reports_Directory}" pattern="*-pmd.xml"/>
+         <merge dir="${Project_Web_Reports_Directory}" pattern="*-fb.xml"/>
+         <merge dir="${Project_Web_Reports_Directory}" pattern="*-pmd.html"/>
+         <merge dir="${Project_Web_Reports_Directory}" pattern="*-fb.html"/>
+         <merge file="${Project_Domain_Reports_Directory}/JUnit/xml/TESTS-TestSuites.xml" />
+         <merge file="${Project_Domain_Reports_Directory}/JsUnit/xml/TESTS-TestSuites.xml" />
+         <merge dir="${Project_Domain_Reports_Directory}/Cobertura/reports"/>
+         <merge dir="${Project_Domain_Reports_Directory}" pattern="*-pmd.xml"/>
+         <merge dir="${Project_Domain_Reports_Directory}" pattern="*-fb.xml"/>
+         <merge dir="${Project_Domain_Reports_Directory}" pattern="*-pmd.html"/>
+         <merge dir="${Project_Domain_Reports_Directory}" pattern="*-fb.html"/>
+         <merge file="${fitnesse.testresults.file}"/>
+      </log>
 
-        <publishers>
-				<artifactspublisher dir="${Project_Reports_Directory}/JUnit/html" dest="artifacts/${project.name}" subdirectory="JUnit" />
-				<artifactspublisher dir="${Project_Reports_Directory}/JSUnit/html" dest="artifacts/${project.name}" subdirectory="JSUnit" />
-				<artifactspublisher dir="${fitnesse.testresults.dir}" dest="artifacts/${project.name}" subdirectory="FitNesse"/>
-				
-            <onsuccess>
-				<artifactspublisher dir="${Project_Distribution_Directory}" dest="artifacts/${project.name}" subdirectory="Distribution" />
-				<artifactspublisher dir="${Project_Reports_Directory}/Cobertura/reports/cobertura-html" dest="artifacts/${project.name}" subdirectory="Cobertura" />
-				<artifactspublisher dir="${Project_Reports_Directory}/PMD" dest="artifacts/${project.name}" subdirectory="PMD" />
-				<artifactspublisher dir="${Project_Reports_Directory}/FindBugs" dest="artifacts/${project.name}" subdirectory="FindBugs" />
-            </onsuccess>
+      <publishers>
+         <artifactspublisher dir="${Project_Domain_Reports_Directory}/JUnit/html" dest="artifacts/${project.name}" subdirectory="JUnit/DomainTier" />
+         <artifactspublisher dir="${Project_Domain_Reports_Directory}/JsUnit/html" dest="artifacts/${project.name}" subdirectory="JsUnit/DomainTier" />
+         <artifactspublisher dir="${Project_Domain_FitNesse_Directory}" dest="artifacts/${project.name}" subdirectory="FitNesse/DomainTier"/>
+
+         <artifactspublisher dir="${Project_Web_Reports_Directory}/JUnit/html" dest="artifacts/${project.name}" subdirectory="JUnit/WebTier" />
+         <artifactspublisher dir="${Project_Web_Reports_Directory}/JsUnit/html" dest="artifacts/${project.name}" subdirectory="JsUnit/WebTier" />
+         <artifactspublisher dir="${Project_Web_FitNesse_Directory}" dest="artifacts/${project.name}" subdirectory="FitNesse/WebTier"/>
             
-				<onfailure>
-					<htmlemail mailhost="teherhordo.dev.itkodex.hu" returnaddress="zsolt.zsuffa@itkodex.hu" returnname="CruiseControl" failasimportant="true" subjectprefix="CruiseControl:" xsldir="${CCL_HOME}/webapps/cruisecontrol/xsl/" css="${CCL_HOME}/webapps/cruisecontrol/css/cruisecontrol.css">
-						<map alias="zsolt.zsuffa" address="zsolt.zsuffa@itkodex.hu" />
-						<map alias="peter.krima" address="peter.krima@itkodex.hu" />
-					</htmlemail>
-				</onfailure>
-        </publishers>
-
-    </project>
-	
-   <project name="IT-Codex-Commons">
-		<property name="Project_Root_Directory" value="${COMMONS_HOME}/Implementation" />
-		<property name="Project_Build_Directory" value="${Project_Root_Directory}/DomainTier/Build" />
-		<property name="Project_Distribution_Directory" value="${Project_Build_Directory}/Distribution" />
-		<property name="Project_Reports_Directory" value="${Project_Build_Directory}/Reports" />
-		
-        <listeners>
-            <currentbuildstatuslistener file="logs/${project.name}/status.txt"/>
-        </listeners>
-
-        <modificationset quietperiod="60" >
-            <clearcase branch="main" viewpath="${Project_Root_Directory}" recursive="true" />
-        </modificationset>
-
-        <bootstrappers>
-        </bootstrappers>
-
-        <schedule interval="7200">
-            <ant anthome="${ANT_HOME}" uselogger="true" usedebug="false" buildfile="${Project_Build_Directory}/build.xml"/>
-        </schedule>
-
-        <log dir="logs/${project.name}">
-			<merge file="${Project_Reports_Directory}/JUnit/xml/TESTS-TestSuites.xml" />
-			<merge dir="${Project_Reports_Directory}/Cobertura/reports"/>
-			<merge dir="${Project_Reports_Directory}" pattern="*-pmd.xml"/>
-			<merge dir="${Project_Reports_Directory}" pattern="*-fb.xml"/>
-			<merge dir="${Project_Reports_Directory}" pattern="*-pmd.html"/>
-			<merge dir="${Project_Reports_Directory}" pattern="*-fb.html"/>
-			<merge file="${fitnesse.testresults.file}"/>
-		</log>
-
-        <publishers>
-            <onsuccess>
-				<artifactspublisher dir="${Project_Reports_Directory}/JUnit/html" dest="artifacts/${project.name}" subdirectory="JUnit" />
-				<artifactspublisher dir="${fitnesse.testresults.dir}" dest="artifacts/${project.name}" subdirectory="FitNesse"/>
-				<artifactspublisher dir="${Project_Distribution_Directory}" dest="artifacts/${project.name}" subdirectory="Distribution" />
-				<artifactspublisher dir="${Project_Reports_Directory}/Cobertura/reports/cobertura-html" dest="artifacts/${project.name}" subdirectory="Cobertura" />
-				<artifactspublisher dir="${Project_Reports_Directory}/PMD" dest="artifacts/${project.name}" subdirectory="PMD" />
-				<artifactspublisher dir="${Project_Reports_Directory}/FindBugs" dest="artifacts/${project.name}" subdirectory="FindBugs" />
-            </onsuccess>
+         <onsuccess>
+            <artifactspublisher dir="${Project_Domain_Distribution_Directory}" dest="artifacts/${project.name}" subdirectory="Distribution" />
+            <artifactspublisher dir="${Project_Domain_Reports_Directory}/Cobertura/reports/cobertura-html" dest="artifacts/${project.name}" subdirectory="Cobertura/DomainTier" />
+            <artifactspublisher dir="${Project_Domain_Reports_Directory}/PMD" dest="artifacts/${project.name}" subdirectory="PMD/DomainTier" />
+            <artifactspublisher dir="${Project_Domain_Reports_Directory}/FindBugs" dest="artifacts/${project.name}" subdirectory="FindBugs/DomainTier" />
             
-			<onfailure>
-				<htmlemail mailhost="teherhordo.dev.itkodex.hu" returnaddress="zsolt.zsuffa@itkodex.hu" returnname="CruiseControl" failasimportant="true" subjectprefix="CruiseControl:" xsldir="${CCL_HOME}/webapps/cruisecontrol/xsl/" css="${CCL_HOME}/webapps/cruisecontrol/css/cruisecontrol.css">
-					<map alias="zsolt.zsuffa" address="zsolt.zsuffa@itkodex.hu" />
-					<map alias="peter.krima" address="peter.krima@itkodex.hu" />
-				</htmlemail>
-			</onfailure>
-        </publishers>
-    </project>
-	
-   <project name="LiTest">
-		<property name="Project_Root_Directory" value="${LITEST_HOME}/Implementation" />
-		<property name="Project_Build_Directory" value="${Project_Root_Directory}/DomainTier/Build" />
-		<property name="Project_Distribution_Directory" value="${Project_Build_Directory}/Distribution" />
-		<property name="Project_Reports_Directory" value="${Project_Build_Directory}/Reports" />
-		
-        <listeners>
-            <currentbuildstatuslistener file="logs/${project.name}/status.txt"/>
-        </listeners>
-
-        <modificationset quietperiod="60" >
-            <clearcase branch="main" viewpath="${Project_Root_Directory}" recursive="true" />
-        </modificationset>
-
-        <bootstrappers>
-			<clearcasebootstrapper file="${distribution.base.path}/Commons/IT-Codex-Commons-DomainLogic-0.1.0.jar" />
-        </bootstrappers>
-
-        <schedule interval="3600">
-            <ant anthome="${ANT_HOME}" uselogger="true" usedebug="false" buildfile="${Project_Build_Directory}/build.xml"/>
-        </schedule>
-
-        <log dir="logs/${project.name}">
-			<merge file="${Project_Reports_Directory}/JUnit/xml/TESTS-TestSuites.xml" />
-			<merge dir="${Project_Reports_Directory}/Cobertura/reports"/>
-			<merge dir="${Project_Reports_Directory}" pattern="*-pmd.xml"/>
-			<merge dir="${Project_Reports_Directory}" pattern="*-fb.xml"/>
-			<merge dir="${Project_Reports_Directory}" pattern="*-pmd.html"/>
-			<merge dir="${Project_Reports_Directory}" pattern="*-fb.html"/>
-			<merge file="${fitnesse.testresults.file}"/>
-		</log>
-
-        <publishers>
-			<onsuccess>
-				<artifactspublisher dir="${Project_Reports_Directory}/JUnit/html" dest="artifacts/${project.name}" subdirectory="JUnit" />
-				<artifactspublisher dir="${fitnesse.testresults.dir}" dest="artifacts/${project.name}" subdirectory="FitNesse"/>
-				<artifactspublisher dir="${Project_Distribution_Directory}" dest="artifacts/${project.name}" subdirectory="Distribution" />
-				<artifactspublisher dir="${Project_Reports_Directory}/Cobertura/reports/cobertura-html" dest="artifacts/${project.name}" subdirectory="Cobertura" />
-				<artifactspublisher dir="${Project_Reports_Directory}/PMD" dest="artifacts/${project.name}" subdirectory="PMD" />
-				<artifactspublisher dir="${Project_Reports_Directory}/FindBugs" dest="artifacts/${project.name}" subdirectory="FindBugs" />
-            </onsuccess>
+            <artifactspublisher dir="${Project_Web_Distribution_Directory}" dest="artifacts/${project.name}" subdirectory="Distribution" />
+            <artifactspublisher dir="${Project_Web_Reports_Directory}/Cobertura/reports/cobertura-html" dest="artifacts/${project.name}" subdirectory="Cobertura/WebTier" />
+            <artifactspublisher dir="${Project_Web_Reports_Directory}/PMD" dest="artifacts/${project.name}" subdirectory="PMD/WebTier" />
+            <artifactspublisher dir="${Project_Web_Reports_Directory}/FindBugs" dest="artifacts/${project.name}" subdirectory="FindBugs/WebTier" />
+         </onsuccess>
             
-			<onfailure>
-				<htmlemail mailhost="teherhordo.dev.itkodex.hu" returnaddress="zsolt.zsuffa@itkodex.hu" returnname="CruiseControl" failasimportant="true" subjectprefix="CruiseControl:" xsldir="${CCL_HOME}/webapps/cruisecontrol/xsl/" css="${CCL_HOME}/webapps/cruisecontrol/css/cruisecontrol.css">
-					<map alias="zsolt.zsuffa" address="zsolt.zsuffa@itkodex.hu" />
-					<map alias="peter.krima" address="peter.krima@itkodex.hu" />
-				</htmlemail>
-			</onfailure>
-        </publishers>
-    </project>
-	
-   <project name="IT-Codex-ANT-Tasks">
-		<property name="Project_Root_Directory" value="${ANT_TASK_HOME}" />
-		<property name="Project_Build_Directory" value="${Project_Root_Directory}/Build" />
-		<property name="Project_Distribution_Directory" value="${PP_HOME}/build/Distribution/ITCodexBuildTasks" />
-		<property name="Project_Reports_Directory" value="${Project_Build_Directory}/Reports" />
-		
-        <listeners>
-            <currentbuildstatuslistener file="logs/${project.name}/status.txt"/>
-        </listeners>
+         <onfailure>
+            <htmlemail>
+               <map alias="peter.krima" address="peter.krima@itkodex.hu" />
+            </htmlemail>
+         </onfailure>
+      </publishers>
 
-        <modificationset quietperiod="60" >
-            <clearcase branch="main" viewpath="${Project_Root_Directory}" recursive="true" />
-        </modificationset>
-
-        <bootstrappers>
-			<clearcasebootstrapper file="${distribution.base.path}/Commons/IT-Codex-Commons-DomainLogic-0.1.0.jar" />
-        </bootstrappers>
-
-        <schedule interval="3600">
-            <ant anthome="${ANT_HOME}" uselogger="true" usedebug="false" buildfile="${Project_Build_Directory}/build.xml"/>
-        </schedule>
-
-        <log dir="logs/${project.name}">
-			<merge file="${Project_Reports_Directory}/JUnit/xml/TESTS-TestSuites.xml" />
-			<merge dir="${Project_Reports_Directory}" pattern="*-pmd.xml"/>
-			<merge dir="${Project_Reports_Directory}" pattern="*-fb.xml"/>
-			<merge dir="${Project_Reports_Directory}" pattern="*-pmd.html"/>
-			<merge dir="${Project_Reports_Directory}" pattern="*-fb.html"/>
-			<merge file="${fitnesse.testresults.file}"/>
-		</log>
-
-        <publishers>
-			<onsuccess>
-				<artifactspublisher dir="${Project_Reports_Directory}/JUnit/html" dest="artifacts/${project.name}" subdirectory="JUnit" />
-				<artifactspublisher dir="${fitnesse.testresults.dir}" dest="artifacts/${project.name}" subdirectory="FitNesse"/>
-				<artifactspublisher dir="${Project_Distribution_Directory}" dest="artifacts/${project.name}" subdirectory="Distribution" />
-				<artifactspublisher dir="${Project_Reports_Directory}/PMD" dest="artifacts/${project.name}" subdirectory="PMD" />
-				<artifactspublisher dir="${Project_Reports_Directory}/FindBugs" dest="artifacts/${project.name}" subdirectory="FindBugs" />
-            </onsuccess>
-            
-			<onfailure>
-				<htmlemail mailhost="teherhordo.dev.itkodex.hu" returnaddress="zsolt.zsuffa@itkodex.hu" returnname="CruiseControl" failasimportant="true" subjectprefix="CruiseControl:" xsldir="${CCL_HOME}/webapps/cruisecontrol/xsl/" css="${CCL_HOME}/webapps/cruisecontrol/css/cruisecontrol.css">
-					<map alias="zsolt.zsuffa" address="zsolt.zsuffa@itkodex.hu" />
-					<map alias="peter.krima" address="peter.krima@itkodex.hu" />
-				</htmlemail>
-			</onfailure>
-        </publishers>
-    </project>
-
-	<!-- TMC -->
-    <project name="TMC" >
-		<property name="Project_Root_Directory" value="${TMC_HOME}/Implementation" />
-		<property name="Project_Build_Directory" value="${Project_Root_Directory}/Build" />
-		
-		<property name="Project_Domain_Build_Directory" value="${Project_Root_Directory}/DomainTier/Build" />
-		<property name="Project_Domain_Distribution_Directory" value="${Project_Domain_Build_Directory}/Distribution" />
-		<property name="Project_Domain_Reports_Directory" value="${Project_Domain_Build_Directory}/Reports" />
-		<property name="Project_Domain_FitNesse_Directory" value="${fitnesse.testresults.dir}/IshTmc.AcceptanceTests.BusinessModel.DomainLayer" />
-		
-		<property name="Project_Web_Build_Directory" value="${Project_Root_Directory}/WebTier/Build" />
-		<property name="Project_Web_Distribution_Directory" value="${Project_Web_Build_Directory}/Distribution" />
-		<property name="Project_Web_Reports_Directory" value="${Project_Web_Build_Directory}/Reports" />
-		<property name="Project_Web_FitNesse_Directory" value="${fitnesse.testresults.dir}/IshTmc.AcceptanceTests.UseCaseModel" />
-
-		<property file="${Project_Domain_Build_Directory}\buildinfo.properties"/>
-		<property file="${Project_Web_Build_Directory}\buildinfo.properties" />
-		
-        <listeners>
-            <currentbuildstatuslistener file="logs/${project.name}/status.txt"/>
-        </listeners>
-
-        <modificationset>
-            <filesystem folder="${TMC_HOME}/Implementation/DomainTier/"/>
-            <filesystem folder="${TMC_HOME}/Implementation/WebTier/"/>
-        </modificationset>
-
-        <bootstrappers>
-        </bootstrappers>
-
-        <schedule interval="7200">
-            <ant anthome="${ANT_HOME}" uselogger="true" usedebug="false" buildfile="${Project_Build_Directory}/build.xml" />
-        </schedule>
-
-        <log dir="logs/${project.name}">
- 				<merge file="${Project_Web_Reports_Directory}/JUnit/xml/TESTS-TestSuites.xml" />
- 				<merge file="${Project_Web_Reports_Directory}/JSUnit/xml/TESTS-TestSuites.xml" />
-				<merge dir="${Project_Web_Reports_Directory}/Cobertura/reports"/>
-				<merge dir="${Project_Web_Reports_Directory}" pattern="*-pmd.xml"/>
-				<merge dir="${Project_Web_Reports_Directory}" pattern="*-fb.xml"/>
-				<merge dir="${Project_Web_Reports_Directory}" pattern="*-pmd.html"/>
-				<merge dir="${Project_Web_Reports_Directory}" pattern="*-fb.html"/>
- 				<merge file="${Project_Domain_Reports_Directory}/JUnit/xml/TESTS-TestSuites.xml" />
- 				<merge file="${Project_Domain_Reports_Directory}/JSUnit/xml/TESTS-TestSuites.xml" />
-				<merge dir="${Project_Domain_Reports_Directory}/Cobertura/reports"/>
-				<merge dir="${Project_Domain_Reports_Directory}" pattern="*-pmd.xml"/>
-				<merge dir="${Project_Domain_Reports_Directory}" pattern="*-fb.xml"/>
-				<merge dir="${Project_Domain_Reports_Directory}" pattern="*-pmd.html"/>
-				<merge dir="${Project_Domain_Reports_Directory}" pattern="*-fb.html"/>
-				<merge file="${fitnesse.testresults.file}"/>
-        </log>
-
-        <publishers>
-				<artifactspublisher dir="${Project_Domain_Reports_Directory}/JUnit/html" dest="artifacts/${project.name}" subdirectory="JUnit/DomainTier" />
-				<artifactspublisher dir="${Project_Domain_Reports_Directory}/JSUnit/html" dest="artifacts/${project.name}" subdirectory="JSUnit/DomainTier" />
-				<artifactspublisher dir="${Project_Domain_FitNesse_Directory}" dest="artifacts/${project.name}" subdirectory="FitNesse/DomainTier"/>
-
-				<artifactspublisher dir="${Project_Web_Reports_Directory}/JUnit/html" dest="artifacts/${project.name}" subdirectory="JUnit/WebTier" />
-				<artifactspublisher dir="${Project_Web_Reports_Directory}/JSUnit/html" dest="artifacts/${project.name}" subdirectory="JSUnit/WebTier" />
-				<artifactspublisher dir="${Project_Web_FitNesse_Directory}" dest="artifacts/${project.name}" subdirectory="FitNesse/WebTier"/>
-				
-            <onsuccess>
-				<artifactspublisher dir="${Project_Domain_Distribution_Directory}" dest="artifacts/${project.name}" subdirectory="Distribution" />
-				<artifactspublisher dir="${Project_Domain_Reports_Directory}/Cobertura/reports/cobertura-html" dest="artifacts/${project.name}" subdirectory="Cobertura/DomainTier" />
-				<artifactspublisher dir="${Project_Domain_Reports_Directory}/PMD" dest="artifacts/${project.name}" subdirectory="PMD/DomainTier" />
-				<artifactspublisher dir="${Project_Domain_Reports_Directory}/FindBugs" dest="artifacts/${project.name}" subdirectory="FindBugs/DomainTier" />
-				
-				<artifactspublisher dir="${Project_Web_Distribution_Directory}" dest="artifacts/${project.name}" subdirectory="Distribution" />
-				<artifactspublisher dir="${Project_Web_Reports_Directory}/Cobertura/reports/cobertura-html" dest="artifacts/${project.name}" subdirectory="Cobertura/WebTier" />
-				<artifactspublisher dir="${Project_Web_Reports_Directory}/PMD" dest="artifacts/${project.name}" subdirectory="PMD/WebTier" />
-				<artifactspublisher dir="${Project_Web_Reports_Directory}/FindBugs" dest="artifacts/${project.name}" subdirectory="FindBugs/WebTier" />
-            </onsuccess>
-            
-			<onfailure>
-				<htmlemail mailhost="teherhordo.dev.itkodex.hu" returnaddress="zsolt.zsuffa@itkodex.hu" returnname="CruiseControl" failasimportant="true" subjectprefix="CruiseControl:" xsldir="${CCL_HOME}/webapps/cruisecontrol/xsl/" css="${CCL_HOME}/webapps/cruisecontrol/css/cruisecontrol.css">
-					<map alias="zsolt.zsuffa" address="zsolt.zsuffa@itkodex.hu" />
-					<map alias="peter.krima" address="peter.krima@itkodex.hu" />
-					<map alias="peter.krima" address="mnagy@ish.hu" />
-					<map alias="peter.krima" address="ntasi@ish.hu" />
-					<map alias="peter.krima" address="avukovics@ish.hu" />
-				</htmlemail>
-			</onfailure>
-        </publishers>
-
-    </project>	
+   </plugin>
+   
+   <project name="ProcessPuzzleUI" />
+   
 </cruisecontrol>

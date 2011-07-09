@@ -1,0 +1,86 @@
+<cruisecontrol>
+   <!-- ProcessPuzzleFramework -->
+
+   <project name="ProcessPuzzleFramework" >
+      <property name="Project_Root_Directory" value="${VIEW_PATH}/${project.name}/Implementation" />
+      <property name="Project_Build_Directory" value="${Project_Root_Directory}/Build" />
+      
+      <property name="Project_Domain_Build_Directory" value="${Project_Root_Directory}/DomainTier/Build" />
+      <property name="Project_Domain_Distribution_Directory" value="${Project_Domain_Build_Directory}/Distribution" />
+      <property name="Project_Domain_Reports_Directory" value="${Project_Domain_Build_Directory}/Reports" />
+      <property name="Project_Domain_FitNesse_Directory" value="${fitnesse.testresults.dir}/IshTmc.AcceptanceTests.BusinessModel.DomainLayer" />
+      
+      <property name="Project_Web_Build_Directory" value="${Project_Root_Directory}/WebTier/Build" />
+      <property name="Project_Web_Distribution_Directory" value="${Project_Web_Build_Directory}/Distribution" />
+      <property name="Project_Web_Reports_Directory" value="${Project_Web_Build_Directory}/Reports" />
+      <property name="Project_Web_FitNesse_Directory" value="${fitnesse.testresults.dir}/IshTmc.AcceptanceTests.UseCaseModel" />
+
+      <property file="${Project_Domain_Build_Directory}\buildinfo.properties"/>
+      <property file="${Project_Web_Build_Directory}\buildinfo.properties" />
+      
+        <listeners>
+            <currentbuildstatuslistener file="logs/${project.name}/status.txt"/>
+        </listeners>
+
+        <modificationset>
+            <filesystem folder="${PP_UI_HOME}/Implementation/DomainTier/"/>
+            <filesystem folder="${PP_UI_HOME}/Implementation/WebTier/"/>
+        </modificationset>
+
+        <bootstrappers>
+        </bootstrappers>
+
+        <schedule interval="7200">
+            <ant anthome="${ANT_HOME}" uselogger="true" usedebug="false" buildfile="${Project_Build_Directory}/build.xml" />
+        </schedule>
+
+        <log dir="logs/${project.name}">
+            <merge file="${Project_Web_Reports_Directory}/JUnit/xml/TESTS-TestSuites.xml" />
+            <merge file="${Project_Web_Reports_Directory}/JSUnit/xml/TESTS-TestSuites.xml" />
+            <merge dir="${Project_Web_Reports_Directory}/Cobertura/reports"/>
+            <merge dir="${Project_Web_Reports_Directory}" pattern="*-pmd.xml"/>
+            <merge dir="${Project_Web_Reports_Directory}" pattern="*-fb.xml"/>
+            <merge dir="${Project_Web_Reports_Directory}" pattern="*-pmd.html"/>
+            <merge dir="${Project_Web_Reports_Directory}" pattern="*-fb.html"/>
+            <merge file="${Project_Domain_Reports_Directory}/JUnit/xml/TESTS-TestSuites.xml" />
+            <merge file="${Project_Domain_Reports_Directory}/JSUnit/xml/TESTS-TestSuites.xml" />
+            <merge dir="${Project_Domain_Reports_Directory}/Cobertura/reports"/>
+            <merge dir="${Project_Domain_Reports_Directory}" pattern="*-pmd.xml"/>
+            <merge dir="${Project_Domain_Reports_Directory}" pattern="*-fb.xml"/>
+            <merge dir="${Project_Domain_Reports_Directory}" pattern="*-pmd.html"/>
+            <merge dir="${Project_Domain_Reports_Directory}" pattern="*-fb.html"/>
+            <merge file="${fitnesse.testresults.file}"/>
+        </log>
+
+        <publishers>
+            <artifactspublisher dir="${Project_Domain_Reports_Directory}/JUnit/html" dest="artifacts/${project.name}" subdirectory="JUnit/DomainTier" />
+            <artifactspublisher dir="${Project_Domain_Reports_Directory}/JSUnit/html" dest="artifacts/${project.name}" subdirectory="JSUnit/DomainTier" />
+            <artifactspublisher dir="${Project_Domain_FitNesse_Directory}" dest="artifacts/${project.name}" subdirectory="FitNesse/DomainTier"/>
+
+            <artifactspublisher dir="${Project_Web_Reports_Directory}/JUnit/html" dest="artifacts/${project.name}" subdirectory="JUnit/WebTier" />
+            <artifactspublisher dir="${Project_Web_Reports_Directory}/JSUnit/html" dest="artifacts/${project.name}" subdirectory="JSUnit/WebTier" />
+            <artifactspublisher dir="${Project_Web_FitNesse_Directory}" dest="artifacts/${project.name}" subdirectory="FitNesse/WebTier"/>
+            
+            <onsuccess>
+            <artifactspublisher dir="${Project_Domain_Distribution_Directory}" dest="artifacts/${project.name}" subdirectory="Distribution" />
+            <artifactspublisher dir="${Project_Domain_Reports_Directory}/Cobertura/reports/cobertura-html" dest="artifacts/${project.name}" subdirectory="Cobertura/DomainTier" />
+            <artifactspublisher dir="${Project_Domain_Reports_Directory}/PMD" dest="artifacts/${project.name}" subdirectory="PMD/DomainTier" />
+            <artifactspublisher dir="${Project_Domain_Reports_Directory}/FindBugs" dest="artifacts/${project.name}" subdirectory="FindBugs/DomainTier" />
+            
+            <artifactspublisher dir="${Project_Web_Distribution_Directory}" dest="artifacts/${project.name}" subdirectory="Distribution" />
+            <artifactspublisher dir="${Project_Web_Reports_Directory}/Cobertura/reports/cobertura-html" dest="artifacts/${project.name}" subdirectory="Cobertura/WebTier" />
+            <artifactspublisher dir="${Project_Web_Reports_Directory}/PMD" dest="artifacts/${project.name}" subdirectory="PMD/WebTier" />
+            <artifactspublisher dir="${Project_Web_Reports_Directory}/FindBugs" dest="artifacts/${project.name}" subdirectory="FindBugs/WebTier" />
+            </onsuccess>
+            
+         <onfailure>
+            <htmlemail mailhost="teherhordo.dev.itkodex.hu" returnaddress="zsolt.zsuffa@itkodex.hu" returnname="CruiseControl" failasimportant="true" subjectprefix="CruiseControl:" xsldir="${CCL_HOME}/webapps/cruisecontrol/xsl/" css="${CCL_HOME}/webapps/cruisecontrol/css/cruisecontrol.css">
+               <map alias="zsolt.zsuffa" address="zsolt.zsuffa@itkodex.hu" />
+               <map alias="peter.krima" address="peter.krima@itkodex.hu" />
+            </htmlemail>
+         </onfailure>
+        </publishers>
+
+    </project> 
+
+</cruisecontrol>
