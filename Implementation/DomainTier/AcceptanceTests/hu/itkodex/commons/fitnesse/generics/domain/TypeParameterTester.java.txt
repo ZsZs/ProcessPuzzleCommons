@@ -1,0 +1,7 @@
+package hu.itkodex.commons.fitnesse.generics.domain;
+
+public class ParametrizedObjectWrapper {
+   private Object parametrizedObject;
+   public void instantiateparametrizedObject() {}
+   public Object getParametrizedObject() {return parametrizedObject;}
+}

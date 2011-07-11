@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Commons Domain Tier" basedir=".." default="domaintier-build">
+
+	<property name="project.root" location="${basedir}" />
+	<property name="view.root.path" location="../../../../../" />
+	<property name="common.build.path" value="${view.root.path}/BuildPuzzle/Implementation/BuildSnippets" />
+
+	<property file="${project.root}/Build/local.build.properties" />
+	<property file="${project.root}/Build/component.properties"/>
+	<property file="${common.build.path}/common.build.properties" />
+
+	<target name="domaintier-build">
+		<ant dir="${project.root}" antfile="${common.build.path}/${common.domaintier.build.file}">
+			<property name="cobertura.data.file" value="${project.root}/${cobertura.data.file}" />
+		</ant>
+	</target>
+</project>
