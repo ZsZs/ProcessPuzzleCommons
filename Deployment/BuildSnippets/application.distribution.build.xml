@@ -5,32 +5,20 @@
 	<property name="distributed.javascipt.file" value="${component.distribution.path}/${javasript.packaged.file}" />
 	<property name="distributed.war.file" value="${component.distribution.path}/${application.packaged.file}" />
 	
-	<target name="distribute" depends="distribute.javascript, distribute.war"/>
+	<import file="distribute.artifact.build.xml"/>
+	<import file="distribution.clearcase.build.xml"/>
+	<import file="distribution.git.build.xml"/>
 	
-	<target name="distribute.javascript">
+	<target name="distribute" depends="distribute.javascript, distribute.war" description="Distribute compilled JavaScript and Web Archive"/>
+	
+	<target name="distribute.javascript" description="Distribute JavaScript with all available mechanism.">
 		<echo>About to distribute ${javasript.packaged.file} JavaScript to ${distributed.javascipt.file}.</echo>
-		
-		<ac:if>
-			<available property="file.to.distribute.exist" file="${distributed.javascipt.file}" type="file" />
-			<ac:then>
-				<cccheckout viewpath="${distributed.javascipt.file}" reserved="true" nowarn="true" comment="Distributed by automatic build." />
-			</ac:then>
-		</ac:if>		
-		<copy preservelastmodified="true" overwrite="true" file="${project.distribution.dir}/${javasript.packaged.file}" tofile="${distributed.javascipt.file}" failonerror="false" />
-		<cccheckin viewpath="${distributed.javascipt.file}" identical="true" preservetime="true" nowarn="true" />
+	    <distribute.artifact source.file="${project.distribution.dir}/${javasript.packaged.file}" destination.file="${distributed.javascipt.file}"/>
 	</target>
 	
-	<target name="distribute.war">
-		<echo>About to distribute ${application.packaged.file} JavaScript to ${distributed.war.file}.</echo>
-		
-		<ac:if>
-			<available property="file.to.distribute.exist" file="${distributed.war.file}" type="file" />
-			<ac:then>
-				<cccheckout viewpath="${distributed.war.file}" reserved="true" nowarn="true" comment="Distributed by automatic build." />
-			</ac:then>
-		</ac:if>		
-		<copy preservelastmodified="true" overwrite="true" file="${project.distribution.dir}/${distributed.war.file}" tofile="${distributed.war.file}" failonerror="false" />
-		<cccheckin viewpath="${distributed.war.file}" identical="true" preservetime="true" nowarn="true" />
+	<target name="distribute.war" description="Distribute JavaScript with all available mechanism." >
+		<echo>About to distribute ${application.packaged.file} web archive to ${distributed.war.file}.</echo>
+	    <distribute.artifact source.file="${project.distribution.dir}/${application.packaged.file}" destination.file="${distributed.war.file}"/>
 	</target>
 </project>
 

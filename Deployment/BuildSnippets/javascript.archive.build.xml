@@ -6,11 +6,7 @@
 	<property name="javascript.archive.file" value="${project.root}/${project.distribution.dir}/${javasript.packaged.file}" />
 	
 	<target name="define" >
-		<taskdef 
-			name="concatenateJavaScriptFiles"
-			uri="http://itkodex.hu/"
-			classname="hu.itkodex.ant.ConcatenateJavaScriptFiles"
-			classpath="${project.binary.dir}"/>
+		<taskdef name="concatenateJavaScriptFiles" uri="http://itkodex.hu/" classname="hu.itkodex.ant.ConcatenateJavaScriptFiles" classpath="${project.binary.dir}"/>
 	</target>
   
 	<target name="concatenateJavaScriptFiles" depends="define" >

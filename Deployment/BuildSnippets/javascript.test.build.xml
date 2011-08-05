@@ -2,12 +2,12 @@
 <project name="javascript.testing" basedir="." default="test">
 	<description>Tests compiled component.</description>
 
-	<property name="jsunit.resourceBase" value="${appserver.deploy.dir}/${application.name}/Commons/JavaScript/JsUnit" />
-    <property name="jsunit.bin" value="${appserver.deploy.dir}/${application.name}/Commons/JavaScript/JsUnit/java/bin"/>
-    <property name="jsunit.lib" value="${appserver.deploy.dir}/${application.name}/Commons/JavaScript/JsUnit/java/lib"/>
-    <property name="jsunit.loggingPropertiesFile" value="${appserver.deploy.dir}/${application.name}/Commons/JavaScript/JsUnit/logging.properties"/>
+	<property name="jsunit.resourceBase" value="${appserver.deploy.dir}/${application.name}/${jsunit.base.dir}" />
+    <property name="jsunit.bin" value="${appserver.deploy.dir}/${application.name}/${jsunit.base.dir}/java/bin"/>
+    <property name="jsunit.lib" value="${appserver.deploy.dir}/${application.name}/${jsunit.base.dir}/java/lib"/>
+    <property name="jsunit.loggingPropertiesFile" value="${appserver.deploy.dir}/${application.name}/${jsunit.base.dir}/logging.properties"/>
 	<property name="jsunit.logsDirectory" location="${jsunit.reports.dir}" />
-	<property name="jsunit.testrunner.url" value="${application.url}/Commons/JavaScript/JsUnit/testRunner.html" />
+	<property name="jsunit.testrunner.url" value="${application.url}/${jsunit.base.dir}/testRunner.html" />
 	<property name="web.project.javascript.testsuite.url" value="${application.url}/${application.javascript.testsuite}" />
 	<property name="jsunit.url" value="${jsunit.testrunner.url}?testPage=${web.project.javascript.testsuite.url}" />
 

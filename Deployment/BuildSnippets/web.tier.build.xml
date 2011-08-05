@@ -7,8 +7,6 @@
 	<property name="application.packaged.file" value="${application.name}-${component.version}.${application.package.extension}" />
 	<property name="application.deployed.file" value="${application.name}.${application.package.extension}" />
 	<property name="application.url" value="${appserver.url}/${application.name}" />
-
-	<echo>JavaScript directory: ${web.project.javascript.dir}</echo>
 	
 	<patternset id="source.files">
 		<include name="**/*.java" />
@@ -117,16 +115,10 @@
 	<target name="java.archive" depends="compile, component.packaging.package" description="Package java component." />
 	<target name="web.archive" depends="java.archive, application.packaging.package" description="Package web application." />
 	<target name="undeploy" depends="web.archive, application.undeploy.undeploy" description="Undeploy previous version." />
-<!--	
-	<target name="stop.tomcat" depends="undeploy, start-stop.tomcat.tomcat-stop" description="Stops Tomcat." />
-	<target name="start.tomcat" depends="stop.tomcat, start-stop.tomcat.tomcat-start" description="Starts Tomcat." />
--->
 	<target name="deploy" depends="undeploy, application.deploy.deploy" description="Deploy web application." />
 	<target name="server.availability" depends="deploy, server.availability.check" description="Checks if application is available on server." />
-<!--
 	<target name="javascript.test" depends="server.availability, javascript.testing.test" description="Test JavaScrips." />
--->
-	<target name="javascript.archive" depends="server.availability, javascript.archive.archive" description="Concatenates and compressies JavaScrips." />
+	<target name="javascript.archive" depends="javascript.test, javascript.archive.archive" description="Concatenates and compressies JavaScrips." />
 	<target name="application.test" depends="javascript.archive, application.testing.test" description="Test the complete, deployed application." />
 	<target name="test" depends="application.test, component.testing.test" description="Test component." />
 	<target name="analyse" depends="test, component.analysis.analyse" description="Analyse component." />

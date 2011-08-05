@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="component.distribution" basedir="." default="distribute" xmlns:ac="antlib:net.sf.antcontrib">
-	<description>Distributes the compiled, tested and packaged application or component.</description>
+	<description>Distributes the compiled, tested and packaged component.</description>
 
-	<property name="component.distribution.location" value="${component.distribution.path}\${component.packaged.file}" />
+	<property name="distributed.java.archive.file" value="${component.distribution.path}/${component.packaged.file}" />
+	<property name="distributed.component.properties.file" value="${component.distribution.path}/${component.properties.file}" />
 	
+	<import file="distribute.artifact.build.xml"/>
+	<import file="distribution.clearcase.build.xml"/>
+	<import file="distribution.git.build.xml"/>
 	
-	<target name="distribute">
+	<target name="distribute" depends="distribute.jar, distribute.component.properties" description="Distribute packaged Java component"/>
+	
+	<target name="distribute.jar">
 		<echo>About to distribute ${component.packaged.file} component to ${component.distribution.path}.</echo>
+	    <distribute.artifact source.file="${project.distribution.dir}/${component.packaged.file}" destination.file="${distributed.java.archive.file}"/>
+	</target>
 
-		<ac:if>
-			<available property="file.to.distribute.exist" file="${component.distribution.location}" type="file" />
-			<ac:then>
-				<cccheckout viewpath="${component.distribution.location}" reserved="true" nowarn="true" comment="Distributed by automatic build." />
-			</ac:then>
-		</ac:if>		
-		<copy preservelastmodified="true" overwrite="true" file="${project.distribution.dir}/${component.packaged.file}" tofile="${component.distribution.location}" failonerror="false" />
-		<cccheckin viewpath="${component.distribution.location}" identical="false" preservetime="true" nowarn="true" />
+	<target name="distribute.component.properties">
+		<echo>About to distribute ${component.properties.file} component properties to ${component.distribution.path}.</echo>
+	    <distribute.artifact source.file="${project.build.dir}/${component.properties.file}" destination.file="${distributed.component.properties.file}"/>
 	</target>
 </project>
 
