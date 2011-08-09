@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="artifact.distribution" basedir="." default="distribute.artifact" xmlns:ac="antlib:net.sf.antcontrib">
+
+	<macrodef name="distribute.artifact">
+		<attribute name="source.file"/>
+		<attribute name="destination.file"/>
+		<sequential>
+			<ac:if>
+				<equals arg1="${distribution.git.available}" arg2="yes" />
+				<ac:then>
+					<antcall target="distribute.git.distribute">
+					    <param name="deployable.source.file" value="@{source.file}"/>
+					    <param name="deployable.destination.file" value="@{destination.file}"/>
+					</antcall>
+				</ac:then>
+			</ac:if>		
+			
+			<ac:if>
+				<equals arg1="${distribution.clearcase.available}" arg2="yes" />
+				<ac:then>
+					<antcall target="distribute.clearcase.distribute">
+					    <param name="deployable.source.file" value="@{source.file}"/>
+					    <param name="deployable.destination.file" value="@{destination.file}"/>
+					</antcall>
+				</ac:then>
+			</ac:if>		
+		</sequential>
+	</macrodef>	
+
+</project>

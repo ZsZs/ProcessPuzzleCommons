@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="distribute.clearcase" basedir="." default="distribute" xmlns:ac="antlib:net.sf.antcontrib">
+	<description>Distributes a deployable with copy and ClearCase checkout-checkin.</description>
+	
+	<target name="distribute">
+		<ac:if>
+			<available property="deployable.destination.file.exist" file="${deployable.destination.file}" type="file" />
+			<ac:then>
+				<cccheckout viewpath="${deployable.destination.file}" reserved="true" nowarn="true" comment="Distributed by automatic build." />
+			</ac:then>
+		</ac:if>		
+		<copy preservelastmodified="true" overwrite="true" file="${deployable.source.file}" tofile="${deployable.destination.file}" failonerror="false" />
+		<cccheckin viewpath="${deployable.destination.file}" identical="true" preservetime="true" nowarn="true" />
+	</target>
+</project>
+

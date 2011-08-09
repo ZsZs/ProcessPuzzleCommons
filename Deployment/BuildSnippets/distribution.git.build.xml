@@ -1,0 +1,8 @@
+<project name="distribute.git" basedir="." default="distribute">
+	<description>Distributes a deployable file with copy a Git Commit.</description>
+	
+	<target name="distribute">
+		<copy preservelastmodified="true" overwrite="true" file="${deployable.source.file}" tofile="${deployable.destination.file}" failonerror="false" />
+	</target>
+</project>
+
