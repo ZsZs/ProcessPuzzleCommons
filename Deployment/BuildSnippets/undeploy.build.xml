@@ -8,11 +8,15 @@
 
 	<target name="undeploy-properties">
 		<property name="target.file" value="${appserver.deploy.dir}/${application.deployed.file}" />
+		<property name="target.dir" value="${appserver.deploy.dir}/${application.name}" />
 	</target>
 	
 	<target name="undeploy-by-delete" depends="undeploy-properties">
 		<echo>Undeploying ${target.file} from URL: ${application.url}</echo>
 		<delete file="${target.file}" />
+
+		<echo>Undeploying ${target.dir} from URL: ${application.url}</echo>
+		<delete file="${target.dir}" />
 	</target>
 
 	<target name="wait-for-undeploy" depends="undeploy-by-delete">

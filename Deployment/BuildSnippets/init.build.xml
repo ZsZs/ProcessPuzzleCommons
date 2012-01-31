@@ -9,6 +9,7 @@
 		<delete dir="${project.distribution.dir}" />
 		<delete dir="${project.library.dir}" />
 		<delete dir="${project.reports.dir}" />
+      <delete dir="${project.temp.dir}" />
 		
  		<mkdir dir="${project.binary.dir}" />
  		<mkdir dir="${project.library.dir}" />
@@ -18,6 +19,7 @@
  		<mkdir dir="${project.production.sources.dir}" />
 		<mkdir dir="${project.test.classes.dir}" />
  		<mkdir dir="${project.test.sources.dir}" />
+      <mkdir dir="${project.temp.dir}" />
 		
 		<mkdir dir="${project.distribution.dir}" />
 		<mkdir dir="${cobertura.instrumented.dir}" />

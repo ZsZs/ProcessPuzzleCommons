@@ -2,26 +2,27 @@
 <project name="javascript.archive" basedir="." default="archive" xmlns:itkodex="http://itkodex.hu/">
 	<description>Concatenates JavaScript and CSS files into one file and compresses the result.</description>
 
-	<property name="javasript.packaged.file" value="${component.name}-${component.version}.js" />
+   <property name="javasript.packaged.name" value="${component.name}-${component.version}" />
+	<property name="javasript.packaged.file" value="${javasript.packaged.name}.js" />
 	<property name="javascript.archive.file" value="${project.root}/${project.distribution.dir}/${javasript.packaged.file}" />
-	
-	<target name="define" >
-		<taskdef name="concatenateJavaScriptFiles" uri="http://itkodex.hu/" classname="hu.itkodex.ant.ConcatenateJavaScriptFiles" classpath="${project.binary.dir}"/>
+	  
+   <condition property="sprocketize.app.name" value="sprockets.bat" else="sprockets">
+      <os family="windows" />
+   </condition>
+   
+	<target name="concatenateJavaScriptFiles">	
+	   <exec executable="${sprocketize.app.name}" output="${javasript.packaged.file}" failonerror="true" logError="true">
+	      <arg value="-I" />
+	      <arg value="${web.project.javascript.source.dir}" />
+	      <arg value="-o" />
+	      <arg value="${project.temp.dir}" />
+	   </exec>
+	   
+	   <copy todir="${project.root}/${project.distribution.dir}" failonerror="true" filtering="true">
+	      <fileset dir="${project.temp.dir}" includes="${component.name}-*.js"/>
+	      <mapper type="glob" from="${component.name}-*.js" to="${javasript.packaged.file}" />
+	   </copy>
 	</target>
   
-	<target name="concatenateJavaScriptFiles" depends="define" >
-		<echo message="Project base directory: ${basedir}" level="verbose" />
-		<echo message="JavaScript base directory: ${web.project.javascript.dir}" level="verbose" />
-		<echo message="Target file: ${javascript.archive.file}" level="verbose" />
-		<echo message="JavaScript source files: ${toString:javascript.source.files}" level="verbose" />
-		
-		<itkodex:concatenateJavaScriptFiles baseDirectory="${web.project.javascript.dir}" targetFile="${javascript.archive.file}">
-			<fileset dir="${web.project.javascript.dir}">
-				<patternset refid="javascript.source.files" />
-			</fileset>
-		</itkodex:concatenateJavaScriptFiles>
-	</target>
-  
-	<target name="archive" depends="concatenateJavaScriptFiles" >
-	</target>
+	<target name="archive" depends="concatenateJavaScriptFiles" ></target>
 </project>

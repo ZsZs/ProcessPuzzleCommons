@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Upload" basedir=".." default="upload">
+
+<!--path id="build-classpath">
+    <fileset dir="c:/ant/lib">
+        <include name="*.jar"/>
+    </fileset>
+</path-->
+
+<property file="c:/ant/bin/ftp.properties" /> <!-- change ftp.properties path! -->
+
+
+<target name="upload">
+  <ftp server="${ftp.server.ip}" userid="${ftp.server.user}" password="${ftp.server.pass}" passive="yes" remotedir="${ftp.server.dir}" verbose="yes">
+    <fileset dir="c:\files">
+      <include name="*.*"/>
+    </fileset>
+  </ftp>  
+  <echo>Finished</echo>
+</target>
+</project>
