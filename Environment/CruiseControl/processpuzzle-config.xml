@@ -1,17 +1,16 @@
 <cruisecontrol>
-   <property name="VIEW_PATH" value="c:\Repositories" />
-   <property name="CCL_HOME" value="c:\CruiseControl" />
+   <property name="PRIVATE_REPOSITORIES_PATH" value="D:\ClearCaseViews\cruisecontrol_view" />
+   <property name="PUBLIC_REPOSITORIES_PATH" value="D:\GitRepositories" />
+   <property name="CCL_HOME" value="c:\Program Files\CruiseControl" />
    <property name="ANT_HOME" value="c:\apache-ant-1.8.2" />
-   <property name="ANT_TASK_HOME" value="${VIEW_PATH}\ProcessPuzzle\Environment\ANT" />
-   <property name="BUILD_PUZZLE_HOME" value="${VIEW_PATH}\BuildPuzzle" />
-   <property name="LITEST_HOME" value="${VIEW_PATH}\LiTest" />
-   <property name="PP_COMMONS_HOME" value="${VIEW_PATH}\ProcessPuzzleCommons" />
-   <property name="PP_FRAMEWORK_HOME" value="${VIEW_PATH}\ProcessPuzzleFramework" />
-   <property name="PP_UI_HOME" value="${VIEW_PATH}\ProcessPuzzleUI" />
-
-   <property name ="view.root.path" value="${VIEW_PATH}" />
+   <property name="ANT_TASK_HOME" value="${PUBLIC_REPOSITORIES_PATH}\ProcessPuzzleCommons\Environment\ANT\AntTasks" />
+   <property name="BUILD_PUZZLE_HOME" value="${PUBLIC_REPOSITORIES_PATH}\BuildPuzzle" />
+   <property name="LITEST_HOME" value="${PUBLIC_REPOSITORIES_PATH}\LiTest" />
+   <property name="PP_COMMONS_HOME" value="${PUBLIC_REPOSITORIES_PATH}\ProcessPuzzleCommons" />
+   <property name="PP_FRAMEWORK_HOME" value="${PUBLIC_REPOSITORIES_PATH}\ProcessPuzzleFramework" />
+   <property name="PP_UI_HOME" value="${PUBLIC_REPOSITORIES_PATH}\ProcessPuzzleUI" />
    
-   <property file="${VIEW_PATH}\ProcessPuzzle\Environment\ANT\Scripts\common.build.properties" />
+   <property file="${PP_COMMONS_HOME}\Deployment\BuildSnippets\common.build.properties" />
    
    <plugin name="htmlemail" 
       mailhost="smtp.gmail.com"
@@ -30,7 +29,7 @@
    </plugin>
    
    <plugin name="project">
-      <property name="Project_Root_Directory" value="${VIEW_PATH}/${project.name}/Implementation" />
+      <property name="Project_Root_Directory" value="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation" />
       <property name="Project_Build_Directory" value="${Project_Root_Directory}/Build" />
       
       <property name="Project_Domain_Build_Directory" value="${Project_Root_Directory}/DomainTier/Build" />
@@ -51,8 +50,8 @@
       </listeners>
 
       <modificationset>
-         <filesystem folder="${Project_Root_Directory}/Implementation/DomainTier/"/>
-         <filesystem folder="${Project_Root_Directory}/Implementation/WebTier/"/>
+         <filesystem folder="${Project_Root_Directory}/DomainTier/"/>
+         <filesystem folder="${Project_Root_Directory}/WebTier/"/>
       </modificationset>
 
       <bootstrappers>
