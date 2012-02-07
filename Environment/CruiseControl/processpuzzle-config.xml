@@ -29,15 +29,16 @@
    </plugin>
    
    <plugin name="project">
-      <property name="Project_Root_Directory" value="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation" />
-      <property name="Project_Build_Directory" value="${Project_Root_Directory}/Build" />
+      <property name="Project_Root_Directory" value="${PUBLIC_REPOSITORIES_PATH}/${project.name}" />
+      <property name="Project_Implementation_Directory" value="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation" />
+      <property name="Project_Build_Directory" value="${Project_Implementation_Directory}/Build" />
       
-      <property name="Project_Domain_Build_Directory" value="${Project_Root_Directory}/DomainTier/Build" />
+      <property name="Project_Domain_Build_Directory" value="${Project_Implementation_Directory}/DomainTier/Build" />
       <property name="Project_Domain_Distribution_Directory" value="${Project_Domain_Build_Directory}/Distribution" />
       <property name="Project_Domain_Reports_Directory" value="${Project_Domain_Build_Directory}/Reports" />
       <property name="Project_Domain_FitNesse_Directory" value="${fitnesse.testresults.dir}/${project.name}.DocumentsAndTests.DomainLogic" />
       
-      <property name="Project_Web_Build_Directory" value="${Project_Root_Directory}/WebTier/Build" />
+      <property name="Project_Web_Build_Directory" value="${Project_Implementation_Directory}/WebTier/Build" />
       <property name="Project_Web_Distribution_Directory" value="${Project_Web_Build_Directory}/Distribution" />
       <property name="Project_Web_Reports_Directory" value="${Project_Web_Build_Directory}/Reports" />
       <property name="Project_Web_FitNesse_Directory" value="${fitnesse.testresults.dir}/${project.name}.DocumentsAndTests.UseCases" />
@@ -50,8 +51,8 @@
       </listeners>
 
       <modificationset>
-         <filesystem folder="${Project_Root_Directory}/DomainTier/"/>
-         <filesystem folder="${Project_Root_Directory}/WebTier/"/>
+         <filesystem folder="${Project_Implementation_Directory}/DomainTier/"/>
+         <filesystem folder="${Project_Implementation_Directory}/WebTier/"/>
       </modificationset>
 
       <bootstrappers>
