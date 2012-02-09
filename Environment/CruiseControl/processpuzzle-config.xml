@@ -28,78 +28,66 @@
       <map alias="peter.krima" address="peter.krima@itkodex.hu" />
    </plugin>
    
-   <plugin name="project">
-      <property name="Project_Root_Directory" value="${PUBLIC_REPOSITORIES_PATH}/${project.name}" />
-      <property name="Project_Implementation_Directory" value="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation" />
-      <property name="Project_Build_Directory" value="${Project_Implementation_Directory}/Build" />
-      
-      <property name="Project_Domain_Build_Directory" value="${Project_Implementation_Directory}/DomainTier/Build" />
-      <property name="Project_Domain_Distribution_Directory" value="${Project_Domain_Build_Directory}/Distribution" />
-      <property name="Project_Domain_Reports_Directory" value="${Project_Domain_Build_Directory}/Reports" />
-      <property name="Project_Domain_FitNesse_Directory" value="${fitnesse.testresults.dir}/${project.name}.DocumentsAndTests.DomainLogic" />
-      
-      <property name="Project_Web_Build_Directory" value="${Project_Implementation_Directory}/WebTier/Build" />
-      <property name="Project_Web_Distribution_Directory" value="${Project_Web_Build_Directory}/Distribution" />
-      <property name="Project_Web_Reports_Directory" value="${Project_Web_Build_Directory}/Reports" />
-      <property name="Project_Web_FitNesse_Directory" value="${fitnesse.testresults.dir}/${project.name}.DocumentsAndTests.UseCases" />
-
-      <property file="${Project_Domain_Build_Directory}\component.properties"/>
-      <property file="${Project_Web_Build_Directory}\component.properties" />
+   <plugin name="standard.project" classname="net.sourceforge.cruisecontrol.ProjectConfig">
+   
+      <property file="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/component.properties"/>
+      <property file="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/component.properties" />
       
       <listeners>
          <currentbuildstatuslistener file="logs/${project.name}/status.txt"/>
       </listeners>
 
       <modificationset>
-         <filesystem folder="${Project_Implementation_Directory}/DomainTier/"/>
-         <filesystem folder="${Project_Implementation_Directory}/WebTier/"/>
+         <filesystem folder="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/"/>
+         <filesystem folder="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/"/>
       </modificationset>
 
       <bootstrappers>
-         <gitbootstrapper localWorkingCopy="${Project_Root_Directory}" />
+         <gitbootstrapper localWorkingCopy="${PUBLIC_REPOSITORIES_PATH}/${project.name}" />
       </bootstrappers>
 
       <schedule interval="7200">
-         <ant anthome="${ANT_HOME}" uselogger="true" usedebug="false" buildfile="${Project_Build_Directory}/build.xml" />
+         <ant anthome="${ANT_HOME}" uselogger="true" usedebug="false" buildfile="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/Build/build.xml" />
       </schedule>
 
-      <log dir="logs/${project.name}">
-         <merge file="${Project_Web_Reports_Directory}/JUnit/xml/TESTS-TestSuites.xml" />
-         <merge file="${Project_Web_Reports_Directory}/JsUnit/xml/TESTS-TestSuites.xml" />
-         <merge dir="${Project_Web_Reports_Directory}/Cobertura/reports"/>
-         <merge dir="${Project_Web_Reports_Directory}" pattern="*-pmd.xml"/>
-         <merge dir="${Project_Web_Reports_Directory}" pattern="*-fb.xml"/>
-         <merge dir="${Project_Web_Reports_Directory}" pattern="*-pmd.html"/>
-         <merge dir="${Project_Web_Reports_Directory}" pattern="*-fb.html"/>
-         <merge file="${Project_Domain_Reports_Directory}/JUnit/xml/TESTS-TestSuites.xml" />
-         <merge file="${Project_Domain_Reports_Directory}/JsUnit/xml/TESTS-TestSuites.xml" />
-         <merge dir="${Project_Domain_Reports_Directory}/Cobertura/reports"/>
-         <merge dir="${Project_Domain_Reports_Directory}" pattern="*-pmd.xml"/>
-         <merge dir="${Project_Domain_Reports_Directory}" pattern="*-fb.xml"/>
-         <merge dir="${Project_Domain_Reports_Directory}" pattern="*-pmd.html"/>
-         <merge dir="${Project_Domain_Reports_Directory}" pattern="*-fb.html"/>
+      <log>
+         <merge file="${PUBLIC_REPOSITORIES_PATH}/${project.name}/WebTier/Build/Reports/JUnit/xml/TESTS-TestSuites.xml" />
+         <merge file="${PUBLIC_REPOSITORIES_PATH}/${project.name}/WebTier/Build/Reports/JsUnit/xml/TESTS-TestSuites.xml" />
+         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/WebTier/Build/Reports/Cobertura/reports"/>
+         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/WebTier/Build/Reports" pattern="*-pmd.xml"/>
+         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/WebTier/Build/Reports" pattern="*-fb.xml"/>
+         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/WebTier/Build/Reports" pattern="*-pmd.html"/>
+         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/WebTier/Build/Reports" pattern="*-fb.html"/>
+         <merge file="${PUBLIC_REPOSITORIES_PATH}/${project.name}/DomainTier/Build/Reports/JUnit/xml/TESTS-TestSuites.xml" />
+         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/DomainTier/Build/Reports/Cobertura/reports"/>
+         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/DomainTier/Build/Reports" pattern="*-pmd.xml"/>
+         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/DomainTier/Build/Reports" pattern="*-fb.xml"/>
+         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/DomainTier/Build/Reports" pattern="*-pmd.html"/>
+         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/DomainTier/Build/Reports" pattern="*-fb.html"/>
          <merge file="${fitnesse.testresults.file}"/>
+         
+         <delete every="3" unit="MONTH" />
+         <deleteartifacts every="3" unit="MONTH" />
       </log>
 
       <publishers>
-         <artifactspublisher dir="${Project_Domain_Reports_Directory}/JUnit/html" dest="artifacts/${project.name}" subdirectory="JUnit/DomainTier" />
-         <artifactspublisher dir="${Project_Domain_Reports_Directory}/JsUnit/html" dest="artifacts/${project.name}" subdirectory="JsUnit/DomainTier" />
-         <artifactspublisher dir="${Project_Domain_FitNesse_Directory}" dest="artifacts/${project.name}" subdirectory="FitNesse/DomainTier"/>
+         <artifactspublisher dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports/JUnit/html" dest="artifacts/${project.name}" subdirectory="JUnit/DomainTier" />
+         <artifactspublisher dir="${fitnesse.testresults.dir}/${fitnesse.testpage.domaintier}" dest="artifacts/${project.name}" subdirectory="FitNesse/DomainTier"/>
 
-         <artifactspublisher dir="${Project_Web_Reports_Directory}/JUnit/html" dest="artifacts/${project.name}" subdirectory="JUnit/WebTier" />
-         <artifactspublisher dir="${Project_Web_Reports_Directory}/JsUnit/html" dest="artifacts/${project.name}" subdirectory="JsUnit/WebTier" />
-         <artifactspublisher dir="${Project_Web_FitNesse_Directory}" dest="artifacts/${project.name}" subdirectory="FitNesse/WebTier"/>
+         <artifactspublisher dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Reports/JUnit/html" dest="artifacts/${project.name}" subdirectory="JUnit/WebTier" />
+         <artifactspublisher dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Reports/JsUnit/html" dest="artifacts/${project.name}" subdirectory="JsUnit/WebTier" />
+         <artifactspublisher dir="${fitnesse.testresults.dir}/${fitnesse.testpage.webtier}" dest="artifacts/${project.name}" subdirectory="FitNesse/WebTier"/>
             
          <onsuccess>
-            <artifactspublisher dir="${Project_Domain_Distribution_Directory}" dest="artifacts/${project.name}" subdirectory="Distribution" />
-            <artifactspublisher dir="${Project_Domain_Reports_Directory}/Cobertura/reports/cobertura-html" dest="artifacts/${project.name}" subdirectory="Cobertura/DomainTier" />
-            <artifactspublisher dir="${Project_Domain_Reports_Directory}/PMD" dest="artifacts/${project.name}" subdirectory="PMD/DomainTier" />
-            <artifactspublisher dir="${Project_Domain_Reports_Directory}/FindBugs" dest="artifacts/${project.name}" subdirectory="FindBugs/DomainTier" />
+            <artifactspublisher dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Distribution" dest="artifacts/${project.name}" subdirectory="Distribution" />
+            <artifactspublisher dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports/Cobertura/reports/cobertura-html" dest="artifacts/${project.name}" subdirectory="Cobertura/DomainTier" />
+            <artifactspublisher dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports/PMD" dest="artifacts/${project.name}" subdirectory="PMD/DomainTier" />
+            <artifactspublisher dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports/FindBugs" dest="artifacts/${project.name}" subdirectory="FindBugs/DomainTier" />
             
-            <artifactspublisher dir="${Project_Web_Distribution_Directory}" dest="artifacts/${project.name}" subdirectory="Distribution" />
-            <artifactspublisher dir="${Project_Web_Reports_Directory}/Cobertura/reports/cobertura-html" dest="artifacts/${project.name}" subdirectory="Cobertura/WebTier" />
-            <artifactspublisher dir="${Project_Web_Reports_Directory}/PMD" dest="artifacts/${project.name}" subdirectory="PMD/WebTier" />
-            <artifactspublisher dir="${Project_Web_Reports_Directory}/FindBugs" dest="artifacts/${project.name}" subdirectory="FindBugs/WebTier" />
+            <artifactspublisher dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Distribution" dest="artifacts/${project.name}" subdirectory="Distribution" />
+            <artifactspublisher dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Reports/Cobertura/reports/cobertura-html" dest="artifacts/${project.name}" subdirectory="Cobertura/WebTier" />
+            <artifactspublisher dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Reports/PMD" dest="artifacts/${project.name}" subdirectory="PMD/WebTier" />
+            <artifactspublisher dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Reports/FindBugs" dest="artifacts/${project.name}" subdirectory="FindBugs/WebTier" />
          </onsuccess>
             
          <onfailure>
@@ -108,9 +96,18 @@
             </htmlemail>
          </onfailure>
       </publishers>
-
    </plugin>
    
-   <project name="ProcessPuzzleUI" />
+   <standard.project name="ProcessPuzzleUI">
+      <property name="project.name" value="ProcessPuzzleUI"/>
+      <property name="fitnesse.testpage.domaintier" value="ProcessPuzzleUI.DocumentsAndTests.DomainLogic"/>
+      <property name="fitnesse.testpage.webtier" value="ProcessPuzzleBrowserInterface.DocumentsAndTests"/>
+   </standard.project>
+   
+   <standard.project name="LiTest">
+      <property name="project.name" value="LiTest"/>
+      <property name="fitnesse.testpage.domaintier" value="LiTest.DocumentsAndTests.DomainLogic"/>
+      <property name="fitnesse.testpage.webtier" value="LiTest.DocumentsAndTests.UseCases"/>
+   </standard.project>
    
 </cruisecontrol>
