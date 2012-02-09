@@ -244,7 +244,7 @@
 <setting id="org.eclipse.wst.jsdt.core.formatter.indent_statements_compare_to_body" value="true"/>
 <setting id="org.eclipse.wst.jsdt.core.formatter.blank_lines_before_new_chunk" value="1"/>
 <setting id="org.eclipse.wst.jsdt.core.formatter.put_empty_statement_on_new_line" value="true"/>
-<setting id="org.eclipse.wst.jsdt.core.formatter.tabulation.char" value="tab"/>
+<setting id="org.eclipse.wst.jsdt.core.formatter.tabulation.char" value="space"/>
 <setting id="org.eclipse.wst.jsdt.core.formatter.insert_space_after_opening_paren_in_enum_constant" value="do not insert"/>
 <setting id="org.eclipse.wst.jsdt.core.formatter.insert_space_after_opening_paren_in_if" value="do not insert"/>
 <setting id="org.eclipse.wst.jsdt.core.formatter.insert_space_after_unary_operator" value="do not insert"/>
