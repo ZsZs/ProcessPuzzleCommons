@@ -37,13 +37,12 @@
          <currentbuildstatuslistener file="logs/${project.name}/status.txt"/>
       </listeners>
 
-      <modificationset>
-         <filesystem folder="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/"/>
-         <filesystem folder="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/"/>
+      <modificationset ignoreFiles="*.class">
+         <git localWorkingCopy="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/"/>
+         <git localWorkingCopy="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/"/>
       </modificationset>
 
       <bootstrappers>
-         <gitbootstrapper localWorkingCopy="${PUBLIC_REPOSITORIES_PATH}/${project.name}" />
          <gitbootstrapper localWorkingCopy="${BUILD_PUZZLE_HOME}" />
          <gitbootstrapper localWorkingCopy="${PP_COMMONS_HOME}" />
       </bootstrappers>
@@ -66,7 +65,6 @@
          <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports" pattern="*-fb.xml"/>
          <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports" pattern="*-pmd.html"/>
          <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports" pattern="*-fb.html"/>
-         <merge file="${fitnesse.testresults.file}"/>
          
          <delete every="1" unit="MONTH" />
          <deleteartifacts every="1" unit="MONTH" />
@@ -74,11 +72,11 @@
 
       <publishers>
          <artifactspublisher dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports/JUnit/html" dest="artifacts/${project.name}" subdirectory="JUnit/DomainTier" />
-         <artifactspublisher dir="${fitnesse.testresults.dir}/${fitnesse.testpage.domaintier}" dest="artifacts/${project.name}" subdirectory="FitNesse/DomainTier"/>
+         <artifactspublisher dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports/FitNesse" dest="artifacts/${project.name}" subdirectory="FitNesse/DomainTier"/>
 
          <artifactspublisher dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Reports/JUnit/html" dest="artifacts/${project.name}" subdirectory="JUnit/WebTier" />
          <artifactspublisher dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Reports/JsUnit/html" dest="artifacts/${project.name}" subdirectory="JsUnit/WebTier" />
-         <artifactspublisher dir="${fitnesse.testresults.dir}/${fitnesse.testpage.webtier}" dest="artifacts/${project.name}" subdirectory="FitNesse/WebTier"/>
+         <artifactspublisher dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Reports/FitNesse" dest="artifacts/${project.name}" subdirectory="FitNesse/WebTier"/>
             
          <onsuccess>
             <artifactspublisher dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Distribution" dest="artifacts/${project.name}" subdirectory="Distribution" />
