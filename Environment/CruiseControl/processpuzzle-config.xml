@@ -44,6 +44,8 @@
 
       <bootstrappers>
          <gitbootstrapper localWorkingCopy="${PUBLIC_REPOSITORIES_PATH}/${project.name}" />
+         <gitbootstrapper localWorkingCopy="${BUILD_PUZZLE_HOME}" />
+         <gitbootstrapper localWorkingCopy="${PP_COMMONS_HOME}" />
       </bootstrappers>
 
       <schedule interval="7200">
@@ -51,23 +53,23 @@
       </schedule>
 
       <log>
-         <merge file="${PUBLIC_REPOSITORIES_PATH}/${project.name}/WebTier/Build/Reports/JUnit/xml/TESTS-TestSuites.xml" />
-         <merge file="${PUBLIC_REPOSITORIES_PATH}/${project.name}/WebTier/Build/Reports/JsUnit/xml/TESTS-TestSuites.xml" />
-         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/WebTier/Build/Reports/Cobertura/reports"/>
-         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/WebTier/Build/Reports" pattern="*-pmd.xml"/>
-         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/WebTier/Build/Reports" pattern="*-fb.xml"/>
-         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/WebTier/Build/Reports" pattern="*-pmd.html"/>
-         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/WebTier/Build/Reports" pattern="*-fb.html"/>
-         <merge file="${PUBLIC_REPOSITORIES_PATH}/${project.name}/DomainTier/Build/Reports/JUnit/xml/TESTS-TestSuites.xml" />
-         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/DomainTier/Build/Reports/Cobertura/reports"/>
-         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/DomainTier/Build/Reports" pattern="*-pmd.xml"/>
-         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/DomainTier/Build/Reports" pattern="*-fb.xml"/>
-         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/DomainTier/Build/Reports" pattern="*-pmd.html"/>
-         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/DomainTier/Build/Reports" pattern="*-fb.html"/>
+         <merge file="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Reports/JUnit/xml/TESTS-TestSuites.xml" />
+         <merge file="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Reports/JsUnit/xml/TESTS-TestSuites.xml" />
+         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Reports/Cobertura/reports"/>
+         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Reports" pattern="*-pmd.xml"/>
+         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Reports" pattern="*-fb.xml"/>
+         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Reports" pattern="*-pmd.html"/>
+         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Reports" pattern="*-fb.html"/>
+         <merge file="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports/JUnit/xml/TESTS-TestSuites.xml" />
+         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports/Cobertura/reports"/>
+         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports" pattern="*-pmd.xml"/>
+         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports" pattern="*-fb.xml"/>
+         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports" pattern="*-pmd.html"/>
+         <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports" pattern="*-fb.html"/>
          <merge file="${fitnesse.testresults.file}"/>
          
-         <delete every="3" unit="MONTH" />
-         <deleteartifacts every="3" unit="MONTH" />
+         <delete every="1" unit="MONTH" />
+         <deleteartifacts every="1" unit="MONTH" />
       </log>
 
       <publishers>
