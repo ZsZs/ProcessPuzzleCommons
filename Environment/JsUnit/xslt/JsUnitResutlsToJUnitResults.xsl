@@ -39,21 +39,22 @@
 
     <xsl:template match="browserResult/testCaseResults/testCaseResult">
         <xsl:variable name="browserPath" select="substring-after( substring-before( //browser/fullFileName, '.exe' ), '/' )" />
-        <xsl:variable name="testClassName" select="substring-before( substring-after( substring-before( @name, ':'), '../ObjectTests/' ), '.html' )"/>
-        <xsl:variable name="testMethodName" select="substring-after( @name, ':')"/>
+        <xsl:variable name="packageName" select="substring-before( substring-after( substring-before( @name, ':'), '../objecttests/' ), '.html' )"/>
+        <xsl:variable name="testClassName" select="substring-before( substring-after( @name, ':'), '.' )"/>
+        <xsl:variable name="testMethodName" select="substring-after( substring-after( @name, ':'), '.' )"/>
         <xsl:variable name="browserName">
 			<xsl:call-template name="stripLast">
 				<xsl:with-param name="pText" select="$browserPath"/>
 			</xsl:call-template>
 		</xsl:variable>
-        <xsl:variable name="standardClassName">
+        <xsl:variable name="standardPackageName">
 			<xsl:call-template name="replaceCharacters">
-				<xsl:with-param name="subjectText" select="$testClassName"/>
+				<xsl:with-param name="subjectText" select="$packageName"/>
 				<xsl:with-param name="pattern" select="'/'"/>
 				<xsl:with-param name="replaceText" select="'.'"/>
 			</xsl:call-template>
 		</xsl:variable>
-        <testcase package="{$browserName}" classname="{$standardClassName}" name="{$testMethodName}" time="{@time}">
+        <testcase package="{$standardPackageName}" classname="{$testClassName}" name="{$testMethodName}" time="{@time}">
             <xsl:copy-of select="./*" />
         </testcase>
     </xsl:template>
@@ -96,7 +97,7 @@
 
 <metaInformation>
 	<scenarios>
-		<scenario default="yes" name="Transform JsUnit report to JUnit structure" userelativepaths="yes" externalpreview="no" url="..\..\..\..\ProcessPuzzleUI\Implementation\WebTier\Build\Reports\JsUnit\xml-raw\JSTEST-1328820134063.0.xml" htmlbaseurl=""
+		<scenario default="yes" name="Transform JsUnit report to JUnit structure" userelativepaths="yes" externalpreview="no" url="..\..\..\..\ProcessPuzzleUI\Implementation\WebTier\Build\Reports\JsUnit\xml-raw\JSTEST-1329080930125.0.xml" htmlbaseurl=""
 		          outputurl="" processortype="saxon8" useresolver="yes" profilemode="0" profiledepth="" profilelength="" urlprofilexml="" commandline="" additionalpath="" additionalclasspath="" postprocessortype="none" postprocesscommandline=""
 		          postprocessadditionalpath="" postprocessgeneratedext="" validateoutput="no" validator="internal" customvalidator="">
 			<advancedProp name="sInitialMode" value=""/>
