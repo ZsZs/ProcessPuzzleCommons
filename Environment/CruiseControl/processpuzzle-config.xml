@@ -39,7 +39,7 @@
          <currentbuildstatuslistener file="logs/${project.name}/status.txt"/>
       </listeners>
 
-      <modificationset ignoreFiles="*.class">
+      <modificationset ignoreFiles="*.class, Deployment/Distribution/*.jar, Deployment/Distribution/*.war, Deployment/Distribution/*.js">
          <git localWorkingCopy="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/"/>
          <git localWorkingCopy="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/"/>
       </modificationset>
