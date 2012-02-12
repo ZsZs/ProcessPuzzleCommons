@@ -14,10 +14,12 @@
    
    <plugin name="htmlemail" 
       mailhost="smtp.gmail.com"
+      mailport="465"
       username="processpuzzle@gmail.com"
       password="ProcessPuzzle4Ever"
       returnaddress="processpuzzle@gmail.com" 
-      returnname="CruiseControl" 
+      returnname="CruiseControl"
+      usessl="true"
       failasimportant="true"
       skipusers="false"
       subjectprefix="CruiseControl:" 
