@@ -1,5 +1,5 @@
 <cruisecontrol>
-   <property name="PRIVATE_REPOSITORIES_PATH" value="D:\ClearCaseViews\cruisecontrol_view" />
+   <property name="PRIVATE_REPOSITORIES_PATH" value="d:\ITKodexRepositories\ITKodex\Projects" />
    <property name="PUBLIC_REPOSITORIES_PATH" value="D:\GitRepositories" />
    <property name="CCL_HOME" value="c:\Program Files\CruiseControl" />
    <property name="ANT_HOME" value="c:\apache-ant-1.8.2" />
@@ -30,7 +30,77 @@
       <map alias="peter.krima" address="peter.krima@itkodex.hu" />
    </plugin>
    
-   <plugin name="standard.project" classname="net.sourceforge.cruisecontrol.ProjectConfig">
+   <plugin name="itkodex.project" classname="net.sourceforge.cruisecontrol.ProjectConfig">
+   
+      <property file="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/component.properties"/>
+      <property file="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/component.properties" />
+      
+      <listeners>
+         <currentbuildstatuslistener file="logs/${project.name}/status.txt"/>
+      </listeners>
+
+      <modificationset ignoreFiles="*.class, */Deployment/Distribution/*.jar, */Deployment/Distribution/*.war, */Deployment/Distribution/*.js">
+         <git localWorkingCopy="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/"/>
+         <git localWorkingCopy="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/"/>
+      </modificationset>
+
+      <bootstrappers>
+         <gitbootstrapper localWorkingCopy="${BUILD_PUZZLE_HOME}" />
+         <gitbootstrapper localWorkingCopy="${PP_COMMONS_HOME}" />
+      </bootstrappers>
+
+      <schedule interval="7200">
+         <ant anthome="${ANT_HOME}" uselogger="true" usedebug="false" buildfile="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/Build/build.xml" />
+      </schedule>
+
+      <log>
+         <merge file="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Reports/JUnit/xml/TESTS-TestSuites.xml" />
+         <merge file="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Reports/JsUnit/xml/TESTS-TestSuites.xml" />
+         <merge dir="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Reports/Cobertura/reports"/>
+         <merge dir="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Reports" pattern="*-pmd.xml"/>
+         <merge dir="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Reports" pattern="*-fb.xml"/>
+         <merge dir="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Reports" pattern="*-pmd.html"/>
+         <merge dir="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Reports" pattern="*-fb.html"/>
+         <merge file="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports/JUnit/xml/TESTS-TestSuites.xml" />
+         <merge dir="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports/Cobertura/reports"/>
+         <merge dir="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports" pattern="*-pmd.xml"/>
+         <merge dir="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports" pattern="*-fb.xml"/>
+         <merge dir="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports" pattern="*-pmd.html"/>
+         <merge dir="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports" pattern="*-fb.html"/>
+         
+         <delete every="1" unit="MONTH" />
+         <deleteartifacts every="1" unit="MONTH" />
+      </log>
+
+      <publishers>
+         <artifactspublisher dir="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports/JUnit/html" dest="artifacts/${project.name}" subdirectory="JUnit/DomainTier" />
+         <artifactspublisher dir="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports/FitNesse" dest="artifacts/${project.name}" subdirectory="FitNesse/DomainTier"/>
+
+         <artifactspublisher dir="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Reports/JUnit/html" dest="artifacts/${project.name}" subdirectory="JUnit/WebTier" />
+         <artifactspublisher dir="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Reports/JsUnit/html" dest="artifacts/${project.name}" subdirectory="JsUnit/WebTier" />
+         <artifactspublisher dir="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Reports/FitNesse" dest="artifacts/${project.name}" subdirectory="FitNesse/WebTier"/>
+            
+         <onsuccess>
+            <artifactspublisher dir="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Distribution" dest="artifacts/${project.name}" subdirectory="Distribution" />
+            <artifactspublisher dir="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports/Cobertura/reports/cobertura-html" dest="artifacts/${project.name}" subdirectory="Cobertura/DomainTier" />
+            <artifactspublisher dir="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports/PMD" dest="artifacts/${project.name}" subdirectory="PMD/DomainTier" />
+            <artifactspublisher dir="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports/FindBugs" dest="artifacts/${project.name}" subdirectory="FindBugs/DomainTier" />
+            
+            <artifactspublisher dir="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Distribution" dest="artifacts/${project.name}" subdirectory="Distribution" />
+            <artifactspublisher dir="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Reports/Cobertura/reports/cobertura-html" dest="artifacts/${project.name}" subdirectory="Cobertura/WebTier" />
+            <artifactspublisher dir="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Reports/PMD" dest="artifacts/${project.name}" subdirectory="PMD/WebTier" />
+            <artifactspublisher dir="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/Reports/FindBugs" dest="artifacts/${project.name}" subdirectory="FindBugs/WebTier" />
+         </onsuccess>
+            
+         <onfailure>
+            <htmlemail>
+               <map alias="peter.krima" address="peter.krima@itkodex.hu" />
+            </htmlemail>
+         </onfailure>
+      </publishers>
+   </plugin>
+   
+   <plugin name="public.project" classname="net.sourceforge.cruisecontrol.ProjectConfig">
    
       <property file="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/component.properties"/>
       <property file="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/Build/component.properties" />
@@ -39,9 +109,9 @@
          <currentbuildstatuslistener file="logs/${project.name}/status.txt"/>
       </listeners>
 
-      <modificationset ignoreFiles="*.jar, *.war, Deployment/Distribution/*.js">
-         <git localWorkingCopy="${PUBLIC_REPOSITORIES_PATH}/${project.name}"/>
-         <git localWorkingCopy="${PUBLIC_REPOSITORIES_PATH}/${project.name}"/>
+      <modificationset ignoreFiles="*.class, */Deployment/Distribution/*.jar, */Deployment/Distribution/*.war, */Deployment/Distribution/*.js">
+         <git localWorkingCopy="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/"/>
+         <git localWorkingCopy="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/"/>
       </modificationset>
 
       <bootstrappers>
@@ -100,16 +170,17 @@
       </publishers>
    </plugin>
    
-   <standard.project name="ProcessPuzzleUI">
+   <public.project name="ProcessPuzzleUI">
       <property name="project.name" value="ProcessPuzzleUI"/>
       <property name="fitnesse.testpage.domaintier" value="ProcessPuzzleUI.DocumentsAndTests.DomainLogic"/>
       <property name="fitnesse.testpage.webtier" value="ProcessPuzzleBrowserInterface.DocumentsAndTests"/>
-   </standard.project>
+   </public.project>
    
-   <standard.project name="LiTest">
+   <public.project name="LiTest">
       <property name="project.name" value="LiTest"/>
       <property name="fitnesse.testpage.domaintier" value="LiTest.DocumentsAndTests.DomainLogic"/>
       <property name="fitnesse.testpage.webtier" value="LiTest.DocumentsAndTests.UseCases"/>
-   </standard.project>
+   </public.project>
    
+   <itkodex.project name="Inex" />
 </cruisecontrol>
