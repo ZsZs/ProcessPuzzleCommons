@@ -141,5 +141,6 @@
         <archive path="E:/GitRepositories/ProcessPuzzleCommons/Deployment/ProductionLibraries/JiBX/jibx-schema.jar"/>
         <archive path="E:/GitRepositories/ProcessPuzzleCommons/Deployment/ProductionLibraries/JiBX/stax-api.jar"/>
         <archive path="E:/GitRepositories/ProcessPuzzleCommons/Deployment/ProductionLibraries/JiBX/xpp3.jar"/>
+        <archive path="E:/GitRepositories/ProcessPuzzleCommons/Deployment/ProductionLibraries/JPA/hibernate-jpa-2.0-api-1.0.0.Final.jar"/>
     </library>
 </eclipse-userlibraries>
