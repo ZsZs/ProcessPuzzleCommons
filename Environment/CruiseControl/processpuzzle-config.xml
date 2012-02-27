@@ -178,9 +178,13 @@
    
    <public.project name="LiTest">
       <property name="project.name" value="LiTest"/>
-      <property name="fitnesse.testpage.domaintier" value="LiTest.DocumentsAndTests.DomainLogic"/>
-      <property name="fitnesse.testpage.webtier" value="LiTest.DocumentsAndTests.UseCases"/>
    </public.project>
    
-   <itkodex.project name="Inex" />
+   <itkodex.project name="Inex">
+      <property name="project.name" value="Inex"/>
+   </public.project>
+   
+   <itkodex.project name="Honnia">
+      <property name="project.name" value="Honnia"/>
+   </public.project>
 </cruisecontrol>
