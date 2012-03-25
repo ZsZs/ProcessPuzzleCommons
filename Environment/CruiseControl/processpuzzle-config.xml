@@ -39,7 +39,7 @@
          <currentbuildstatuslistener file="logs/${project.name}/status.txt"/>
       </listeners>
 
-      <modificationset ignoreFiles="*.class, */Deployment/Distribution/*.jar, */Deployment/Distribution/*.war, */Deployment/Distribution/*.js">
+      <modificationset ignoreFiles="*.class, *.jar, *.war, *.js">
          <git localWorkingCopy="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/"/>
          <git localWorkingCopy="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/WebTier/"/>
       </modificationset>
@@ -47,6 +47,7 @@
       <bootstrappers>
          <gitbootstrapper localWorkingCopy="${BUILD_PUZZLE_HOME}" />
          <gitbootstrapper localWorkingCopy="${PP_COMMONS_HOME}" />
+         <gitbootstrapper localWorkingCopy="${PRIVATE_REPOSITORIES_PATH}/${project.name}" />
       </bootstrappers>
 
       <schedule interval="7200">
@@ -68,8 +69,8 @@
          <merge dir="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports" pattern="*-pmd.html"/>
          <merge dir="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports" pattern="*-fb.html"/>
          
-         <delete every="1" unit="MONTH" />
-         <deleteartifacts every="1" unit="MONTH" />
+         <delete every="2" unit="WEEK" />
+         <deleteartifacts every="2" unit="WEEK" />
       </log>
 
       <publishers>
@@ -138,8 +139,8 @@
          <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports" pattern="*-pmd.html"/>
          <merge dir="${PUBLIC_REPOSITORIES_PATH}/${project.name}/Implementation/DomainTier/Build/Reports" pattern="*-fb.html"/>
          
-         <delete every="1" unit="MONTH" />
-         <deleteartifacts every="1" unit="MONTH" />
+         <delete every="2" unit="WEEK" />
+         <deleteartifacts every="2" unit="WEEK" />
       </log>
 
       <publishers>
@@ -182,4 +183,27 @@
       <property name="fitnesse.testpage.webtier" value="ProcessPuzzleBrowserInterface.DocumentsAndTests"/>
    </public.project>
    
+   <itkodex.project name="ProcessPuzzlePublicWeb">
+      <property name="project.name" value="ProcessPuzzlePublicWeb"/>
+      <property name="fitnesse.testpage.domaintier" value="ProcessPuzzleUI.DocumentsAndTests.DomainLogic"/>
+      <property name="fitnesse.testpage.webtier" value="ProcessPuzzleBrowserInterface.DocumentsAndTests"/>
+   </itkodex.project>
+   
+   <itkodex.project name="HonniaPublicWeb">
+      <property name="project.name" value="NonniaPublicWeb"/>
+      <property name="fitnesse.testpage.domaintier" value="ProcessPuzzleUI.DocumentsAndTests.DomainLogic"/>
+      <property name="fitnesse.testpage.webtier" value="ProcessPuzzleBrowserInterface.DocumentsAndTests"/>
+   </itkodex.project>
+   
+   <itkodex.project name="InexPublicWeb">
+      <property name="project.name" value="InexPublicWeb"/>
+      <property name="fitnesse.testpage.domaintier" value="ProcessPuzzleUI.DocumentsAndTests.DomainLogic"/>
+      <property name="fitnesse.testpage.webtier" value="ProcessPuzzleBrowserInterface.DocumentsAndTests"/>
+   </itkodex.project>
+   
+   <itkodex.project name="StateBuildingPublicWeb">
+      <property name="project.name" value="StateBuildingPublicWeb"/>
+      <property name="fitnesse.testpage.domaintier" value="ProcessPuzzleUI.DocumentsAndTests.DomainLogic"/>
+      <property name="fitnesse.testpage.webtier" value="ProcessPuzzleBrowserInterface.DocumentsAndTests"/>
+   </itkodex.project>
 </cruisecontrol>
