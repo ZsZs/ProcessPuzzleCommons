@@ -50,7 +50,7 @@
          <gitbootstrapper localWorkingCopy="${PRIVATE_REPOSITORIES_PATH}/${project.name}" />
       </bootstrappers>
 
-      <schedule interval="7200">
+      <schedule interval="15000">
          <ant anthome="${ANT_HOME}" uselogger="true" usedebug="false" buildfile="${PRIVATE_REPOSITORIES_PATH}/${project.name}/Implementation/Build/build.xml" />
       </schedule>
 
@@ -95,7 +95,7 @@
             
          <onfailure>
             <htmlemail>
-               <map alias="peter.krima" address="peter.krima@itkodex.hu" />
+               <map alias="zsolt.zsuffa" address="zsolt.zsuffa@itkodex.hu" />
             </htmlemail>
          </onfailure>
       </publishers>
@@ -165,7 +165,7 @@
             
          <onfailure>
             <htmlemail>
-               <map alias="peter.krima" address="peter.krima@itkodex.hu" />
+               <map alias="zsolt.zsuffa" address="zsolt.zsuffa@itkodex.hu" />
             </htmlemail>
          </onfailure>
       </publishers>
@@ -190,7 +190,7 @@
    </itkodex.project>
    
    <itkodex.project name="HonniaPublicWeb">
-      <property name="project.name" value="NonniaPublicWeb"/>
+      <property name="project.name" value="HonniaPublicWeb"/>
       <property name="fitnesse.testpage.domaintier" value="ProcessPuzzleUI.DocumentsAndTests.DomainLogic"/>
       <property name="fitnesse.testpage.webtier" value="ProcessPuzzleBrowserInterface.DocumentsAndTests"/>
    </itkodex.project>
