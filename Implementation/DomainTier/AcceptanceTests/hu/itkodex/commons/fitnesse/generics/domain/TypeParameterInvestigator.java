@@ -1,7 +1,5 @@
 package hu.itkodex.commons.fitnesse.generics.domain;
 
-import hu.itkodex.commons.generics.GenericTypeParameterInvestigator;
-import hu.itkodex.commons.text.TextUtil;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,6 +20,9 @@ import javax.tools.JavaCompiler.CompilationTask;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.processpuzzle.commons.generics.GenericTypeParameterInvestigator;
+import com.processpuzzle.commons.text.TextUtil;
 
 import fit.ColumnFixture;
 

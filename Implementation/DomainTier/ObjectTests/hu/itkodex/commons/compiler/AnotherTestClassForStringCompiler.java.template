@@ -1,5 +1,0 @@
-package hu.itkodex.commons.compiler;
-
-public class AnotherTestClassForStringCompiler extends TestClassForStringCompiler {
-
-}

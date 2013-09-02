@@ -1,7 +1,8 @@
 package hu.itkodex.commons.fitnesse.generics.domain;
 
-import hu.itkodex.commons.generics.TestParametrizedClass;
 import java.util.Date;
+
+import com.processpuzzle.commons.generics.TestParametrizedClass;
 
 public class ParametrizedObjectWrapper {
    private Object parametrizedObject;

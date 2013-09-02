@@ -13,7 +13,7 @@ public class TypeParameterInvestigatorTest {
    private static final String TEST_CLASS_SOURCE = ""
       + "package hu.itkodex.commons.fitnesse.generics.domain;"
       + "import java.util.Date;"
-      + "import hu.itkodex.commons.generics.TestParametrizedClass;"
+      + "import com.processpuzzle.commons.generics.TestParametrizedClass;"
       + "public class TestParametrizedSubclass extends TestParametrizedClass<String, Date> {}";
    private TypeParameterInvestigator parameterInvestigator;
    private String parameterType;
