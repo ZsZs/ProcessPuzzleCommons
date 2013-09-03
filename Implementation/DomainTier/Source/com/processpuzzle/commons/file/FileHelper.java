@@ -36,6 +36,8 @@ public class FileHelper {
          enducedRealPath = url.getPath();
          if( StringUtils.startsWithIgnoreCase( enducedRealPath, "/" ) )
             enducedRealPath = StringUtils.substringAfter( enducedRealPath, "/" );
+         else if( StringUtils.startsWithIgnoreCase( enducedRealPath, "file:/" ) )
+            enducedRealPath = StringUtils.substringAfter( enducedRealPath, "file:/" );
       }
 
       return enducedRealPath;

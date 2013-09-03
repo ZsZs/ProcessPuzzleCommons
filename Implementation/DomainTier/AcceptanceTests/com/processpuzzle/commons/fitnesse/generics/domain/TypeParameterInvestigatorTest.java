@@ -1,4 +1,4 @@
-package hu.itkodex.commons.fitnesse.generics.domain;
+package com.processpuzzle.commons.fitnesse.generics.domain;
 
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNull.notNullValue;
@@ -11,7 +11,7 @@ import org.junit.Test;
 
 public class TypeParameterInvestigatorTest {
    private static final String TEST_CLASS_SOURCE = ""
-      + "package hu.itkodex.commons.fitnesse.generics.domain;"
+      + "package com.processpuzzle.commons.fitnesse.generics.domain;"
       + "import java.util.Date;"
       + "import com.processpuzzle.commons.generics.TestParametrizedClass;"
       + "public class TestParametrizedSubclass extends TestParametrizedClass<String, Date> {}";
@@ -27,7 +27,7 @@ public class TypeParameterInvestigatorTest {
    
    @Test public void classAndPackageNameIsDetermined() {
       assertThat( parameterInvestigator.getParametrizedClassName(), equalTo( "TestParametrizedSubclass" ));
-      assertThat( parameterInvestigator.getParametrizedClassPackage(), equalTo( "hu.itkodex.commons.fitnesse.generics.domain" ));
+      assertThat( parameterInvestigator.getParametrizedClassPackage(), equalTo( "com.processpuzzle.commons.fitnesse.generics.domain" ));
    }
    
    @Test public void classIsCompiled() {

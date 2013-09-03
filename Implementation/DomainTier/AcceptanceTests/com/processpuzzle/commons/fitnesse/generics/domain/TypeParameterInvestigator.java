@@ -1,4 +1,4 @@
-package hu.itkodex.commons.fitnesse.generics.domain;
+package com.processpuzzle.commons.fitnesse.generics.domain;
 
 
 import java.io.File;

@@ -1,6 +1,7 @@
-package hu.itkodex.commons.fitnesse;
+package com.processpuzzle.commons.fitnesse;
 
-import hu.itkodex.commons.fitnesse.generics.domain.TypeParameterInvestigator;
+import com.processpuzzle.commons.fitnesse.generics.domain.TypeParameterInvestigator;
+
 import fit.Fixture;
 import fitlibrary.DoFixture;
 
