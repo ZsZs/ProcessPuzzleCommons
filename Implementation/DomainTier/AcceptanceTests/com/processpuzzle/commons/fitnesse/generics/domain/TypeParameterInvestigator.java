@@ -138,15 +138,22 @@ public class TypeParameterInvestigator extends ColumnFixture {
    
    private void loadParametrizedClass() {
       URL[] classFileUrls;
+      URLClassLoader urlClassLoader = null;
       try{
          URL binaryUrl = new URL( "file://" + BINARIES_DIRECTORY + "/" );
          classFileUrls = new URL[] { binaryUrl };
-         URLClassLoader urlClassLoader = new URLClassLoader( classFileUrls );
+         urlClassLoader = new URLClassLoader( classFileUrls );
          parametrizedClass = urlClassLoader.loadClass( parametrizedClassPackage + "." + parametrizedClassName );
       }catch( MalformedURLException e ){
          e.printStackTrace();
       }catch( ClassNotFoundException e ){
          e.printStackTrace();
+      }finally{
+         try{
+            urlClassLoader.close();
+         }catch( IOException e ){
+            e.printStackTrace();
+         }
       }
       
       logger.trace( "Parametrized class: '" + parametrizedClass.getName() + "' was loaded with class loader: '" + parametrizedClass.getClassLoader() +"'" );
