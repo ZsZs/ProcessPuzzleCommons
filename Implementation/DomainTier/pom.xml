@@ -19,7 +19,7 @@
 	<scm>
 		<url>https://github.com/ZsZs/ProcessPuzzleCommons</url>
 		<connection>https://github.com/ZsZs/ProcessPuzzleCommons</connection>
-      <developerConnection>scm:git:https://github.com/ZsZs/ProcessPuzzleCommons</developerConnection>
+      <developerConnection>scm:git:git@github.com:ZsZs/ProcessPuzzleCommons</developerConnection>
 	</scm>
 	<developers>
 		<developer>
