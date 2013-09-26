@@ -4,7 +4,7 @@
 
 	<groupId>com.processpuzzle</groupId>
 	<artifactId>processpuzzle-commons</artifactId>
-	<version>${maven.component.version}</version>
+	<version>0.1.0-SNAPSHOT</version>
 	<name>ProcessPuzzle Commons</name>
 	<packaging>jar</packaging>
 	<description>Simple utility services commonly used by various ProcessPuzzle framework components.</description>
