@@ -2,7 +2,8 @@
    <property name="PRIVATE_REPOSITORIES_PATH" value="d:\PrivateRepositories" />
    <property name="PUBLIC_REPOSITORIES_PATH" value="D:\PublicRepositories" />
    <property name="CCL_HOME" value="c:\Program Files\CruiseControl" />
-   <property name="ANT_HOME" value="c:\apache-ant-1.8.2" />
+   <property name="ANT_HOME" value="d:\DevEnv\apache-ant-1.9.2" />
+   <property name="JAVE_HOME" value="d:\DevEnv\Java\jdk1.7.0_40" />
    <property name="ANT_TASK_HOME" value="${PUBLIC_REPOSITORIES_PATH}\ProcessPuzzleCommons\Environment\ANT\AntTasks" />
    <property name="BUILD_PUZZLE_HOME" value="${PUBLIC_REPOSITORIES_PATH}\BuildPuzzle" />
    <property name="LITEST_HOME" value="${PUBLIC_REPOSITORIES_PATH}\LiTest" />
@@ -185,6 +186,12 @@
    
    <itkodex.project name="ProcessPuzzlePublicWeb">
       <property name="project.name" value="ProcessPuzzlePublicWeb"/>
+      <property name="fitnesse.testpage.domaintier" value="ProcessPuzzleUI.DocumentsAndTests.DomainLogic"/>
+      <property name="fitnesse.testpage.webtier" value="ProcessPuzzleBrowserInterface.DocumentsAndTests"/>
+   </itkodex.project>
+   
+   <itkodex.project name="AgileRenovationPublicWeb">
+      <property name="project.name" value="AgileRenovationPublicWeb"/>
       <property name="fitnesse.testpage.domaintier" value="ProcessPuzzleUI.DocumentsAndTests.DomainLogic"/>
       <property name="fitnesse.testpage.webtier" value="ProcessPuzzleBrowserInterface.DocumentsAndTests"/>
    </itkodex.project>
