@@ -195,7 +195,7 @@
       <property name="fitnesse.testpage.domaintier" value="ProcessPuzzleUI.DocumentsAndTests.DomainLogic"/>
       <property name="fitnesse.testpage.webtier" value="ProcessPuzzleBrowserInterface.DocumentsAndTests"/>
    </itkodex.project>
-   
+<!--   
    <itkodex.project name="HonniaPublicWeb">
       <property name="project.name" value="HonniaPublicWeb"/>
       <property name="fitnesse.testpage.domaintier" value="ProcessPuzzleUI.DocumentsAndTests.DomainLogic"/>
@@ -213,4 +213,5 @@
       <property name="fitnesse.testpage.domaintier" value="ProcessPuzzleUI.DocumentsAndTests.DomainLogic"/>
       <property name="fitnesse.testpage.webtier" value="ProcessPuzzleBrowserInterface.DocumentsAndTests"/>
    </itkodex.project>
+-->
 </cruisecontrol>
