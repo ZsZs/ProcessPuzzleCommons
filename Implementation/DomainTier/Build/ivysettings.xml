@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivysettings>
+	<properties file="${ivy.settings.dir}/local.build.properties"/>
+	<settings defaultResolver="libraries" />
+	<caches defaultCacheDir="${ivy.settings.dir}/ivy-cache" />
+	<resolvers>
+		<filesystem name="projects">
+			<artifact pattern="${ivy.local.default.root}/[artifact]-[revision].[ext]" />
+			<ivy pattern="${ivy.local.default.root}/[module]-[revision].xml" />
+		</filesystem>
+		<ibiblio name="libraries" m2compatible="true" usepoms="false" />
+	</resolvers>
+</ivysettings>
