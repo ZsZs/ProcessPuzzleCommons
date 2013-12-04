@@ -2,7 +2,7 @@
 <ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
 
-    <info organisation="com.processpuzzle" module="processpuzzle-commons" />
+    <info organisation="com.processpuzzle" module="processpuzzle-commons" revision="${component.version}"/>
 	
     <dependencies>
 		<dependency org="com.ibm.icu" name="icu4j" rev="4.8"/>
