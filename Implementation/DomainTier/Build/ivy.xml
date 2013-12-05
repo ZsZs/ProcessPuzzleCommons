@@ -25,6 +25,7 @@
       <dependency org="org.slf4j" name="slf4j-api" rev="1.7.5"/>
       <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.7.5"/>
       <dependency org="org.springframework" name="spring-context" rev="3.2.5.RELEASE"/>
+      <dependency org="org.springframework" name="spring-oxm" rev="3.2.5.RELEASE"/>
       <dependency org="org.springframework.ws" name="spring-ws" rev="2.1.4.RELEASE"/>
       <dependency org="xml-apis" name="xml-apis" rev="2.0.2"/>
 
