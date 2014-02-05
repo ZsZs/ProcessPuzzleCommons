@@ -1,25 +1,9 @@
-<?xml version="1.0"?>
-<!--
+<?xml version='1.0'?>
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <xsl:output method="html" doctype-system="about:legacy-compat" encoding="UTF-8" indent="yes" />
+  <xsl:include href="./FitNesse-TestPage-html.xslt" />
 
-   Copyright 2009 Ingo Feltes
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-
--->
-<xsl:stylesheet version="1.0"
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-  <xsl:output method="html"/>
-  <xsl:template match="/testResults">
+  <xsl:template match="/suiteResults">
     <xsl:variable name="right" select="finalCounts/right"/>
     <xsl:variable name="wrong" select="finalCounts/wrong"/>
     <xsl:variable name="ignores" select="finalCounts/ignores"/>
@@ -28,57 +12,20 @@
     <xsl:variable name="successRate" select="($ignores + $right) div $total"/>
     <html>
       <head>
-        <title>fit4oaw Test Results for <xsl:value-of select="rootPath"/></title>
-        <style type="text/css">
-          /* JUnit-like report style */
-          body {font:normal 68% verdana,arial,helvetica;color:#000000}
-          table tr td, table tr th {font-size:68%}
-          table.details tr th {font-weight:bold;text-align:left;background:#a6caf0}
-          table.details tr td {background:#eeeee0}
-          p {line-height:1.5em;margin-top:0.5em;margin-bottom:1.0em}
-          h1, h2, h3, h4, h5, h6 {font:bold verdana,arial,helvetica}
-          h2, h3, h4, h5, h6 {margin-bottom:0.5em}
-          h1 {margin:0px 0px 5px;font:165%}
-          h2 {margin-top:1em;font:125%}
-          h3 {font:115%}
-          h4, h5, h6 {font:100%}
-          .Error {font-weight:bold;color:red}
-          .Failure {font-weight:bold;color:purple}
-          /* FitNesse reports */
-          .pass {background-color:#AAFFAA}
-          .fail {background-color:#FFAAAA}
-          .error {background-color:#FFFFAA}
-          .ignore {background-color:#CCCCCC}
-          .fit_stacktrace {font-size:0.7em}
-          .fit_label {font-style:italic;color:#C08080}
-          .fit_grey {color:#808080}
-          .fitnesse {width:95%}
-          .setup, .teardown {background:#FFFFF0;margin-bottom:1em;margin-top:-1em;padding:0.5em;border:dotted 1px black}
-          .setup .collapsable, .teardown .collapsable {margin-top:-1em}
-          .setup .meta, .setup > a, .teardown .meta, .teardown > a, .collapse_rim .meta, .collapse_rim > a {display:none}
-          .fitnesse td {padding:2px}
-          .fitnesse table {border-collapse:collapse}
-          .fitnesse h3 {background-color:#A6CAF0;font-size:100%;padding:5px}
-        </style>
+        <title>FitNesse Test Results for <xsl:value-of select="rootPath"/></title>
+        <link rel="stylesheet" type="text/css" href="Fitnesse-TestPage.css" />
       </head>
       <body>
-        <h1>fit4oaw Tests Results.</h1>
+        <h1>FitNesse Tests Results.</h1>
         <table width="100%">
           <tbody>
-            <tr>
-              <td align="left"/><td align="right">Designed for use with
-                <a href="http://sourceforge.net/projects/fit4oaw/">fit4oaw</a>
-                and <a href="http://ant.apache.org/">Ant</a>.
-              </td>
-            </tr>
+            <tr><td align="left"/><td align="right">Designed for use with <a href="http://fitnesse.org/">FitNesse</a> and <a href="http://ant.apache.org/">Ant</a>.</td></tr>
           </tbody>
         </table>
         <hr size="1"/>
         <h2>Summary</h2>
         <table class="details" border="0" cellpadding="5" cellspacing="2" width="95%">
-          <tr valign="top">
-            <th>Tests</th><th>Ignored</th><th>Failures</th><th>Errors</th><th>Success rate</th>
-          </tr>
+          <tr valign="top"><th>Tests</th><th>Ignored</th><th>Failures</th><th>Errors</th><th>Success rate</th></tr>
           <tr>
             <xsl:attribute name="class">
               <xsl:choose>
@@ -94,21 +41,24 @@
             <td><xsl:value-of select="format-number($successRate, '0.00%')"/></td>
           </tr>
         </table>
+
         <h2>Tests</h2>
         <table class="details" border="0" cellpadding="5" cellspacing="2" width="95%">
           <tr valign="top">
             <th width="70%">Name</th><th>Passed</th><th>Ignored</th><th>Failures</th><th>Errors</th><th>Success Rate</th>
           </tr>
-          <xsl:apply-templates mode="results" select="result"/>
+          <xsl:apply-templates mode="tests" select="//pageHistoryReference"/>
         </table>
+
         <h2>Test Details</h2>
         <div class="fitnesse">
-          <xsl:apply-templates mode="details" select="result"/>
+          <xsl:apply-templates mode="details" select="//pageHistoryReference"/>
         </div>
       </body>
     </html>
     </xsl:template>
-    <xsl:template mode="results" match="result">
+
+    <xsl:template mode="tests" match="//pageHistoryReference">
       <xsl:variable name="right" select="counts/right"/>
       <xsl:variable name="wrong" select="counts/wrong"/>
       <xsl:variable name="exceptions" select="counts/exceptions"/>
@@ -124,8 +74,10 @@
         </xsl:attribute>
         <td>
           <a>
-            <xsl:attribute name="href">#<xsl:value-of select="relativePageName"/></xsl:attribute>
-            <xsl:value-of select="relativePageName"/>
+            <xsl:attribute name="href">#<xsl:value-of select="name"/></xsl:attribute>
+            <xsl:variable name="testPageName" select="name"/>
+            <xsl:variable name="delimiter" select="."/>
+            <xsl:value-of select="tokenize(name, '\.' )[last()]"/>
           </a>
         </td>
         <td><xsl:value-of select="$right"/></td>
@@ -140,21 +92,42 @@
         </td>
       </tr>
     </xsl:template>
-    <xsl:template mode="details" match="result">
-      <a><xsl:attribute name="name"><xsl:value-of select="relativePageName"/></xsl:attribute></a>
-      <h3><xsl:value-of select="relativePageName"/></h3>
+
+    <xsl:template mode="details" match="//pageHistoryReference">
+      <a><xsl:attribute name="name"><xsl:value-of select="name"/></xsl:attribute></a>
+      <h3><xsl:value-of select="name"/></h3>
       <xsl:value-of select="content" disable-output-escaping="yes"/>
   </xsl:template>
+
 </xsl:stylesheet><!-- Stylus Studio meta-information - (c) 2004-2009. Progress Software Corporation. All rights reserved.
 
 <metaInformation>
    <scenarios>
-      <scenario default="yes" name="Scenario1" userelativepaths="yes" externalpreview="no"
-                url="..\..\..\..\EntwicklungsUmgebung\FitNesse\FitNesseRoot\files\testResults\FitNesse.SuiteAcceptanceTests.SuiteFixtureTests.SuiteColumnFixtureSpec.TestArraysInColumnFixture\20140205120236_1_0_0_0.xml" htmlbaseurl="" outputurl=""
-                processortype="saxon8" useresolver="yes" profilemode="0" profiledepth="" profilelength="" urlprofilexml="" commandline="" additionalpath="" additionalclasspath="" postprocessortype="none" postprocesscommandline=""
-                postprocessadditionalpath="" postprocessgeneratedext="" validateoutput="no" validator="internal" customvalidator="">
+      <scenario default="no" name="Scenario1" userelativepaths="yes" externalpreview="no"
+                url="..\..\..\..\EntwicklungsUmgebung\FitNesse\FitNesseRoot\files\testResults\FitNesse.SuiteAcceptanceTests.SuiteFixtureTests.SuiteColumnFixtureSpec\20140205120236_4_0_0_0.xml" htmlbaseurl=""
+                outputurl="..\..\Implementation\DomainTier\Build\Reports\FitNesse\html\test_suite_results.html" processortype="saxon8" useresolver="yes" profilemode="0" profiledepth="" profilelength="" urlprofilexml="" commandline="" additionalpath=""
+                additionalclasspath="" postprocessortype="none" postprocesscommandline="" postprocessadditionalpath="" postprocessgeneratedext="" validateoutput="no" validator="internal" customvalidator="">
          <advancedProp name="sInitialMode" value=""/>
          <advancedProp name="schemaCache" value="||"/>
+         <advancedProp name="bXsltOneIsOkay" value="true"/>
+         <advancedProp name="bSchemaAware" value="true"/>
+         <advancedProp name="bGenerateByteCode" value="true"/>
+         <advancedProp name="bXml11" value="false"/>
+         <advancedProp name="iValidation" value="0"/>
+         <advancedProp name="bExtensions" value="true"/>
+         <advancedProp name="iWhitespace" value="0"/>
+         <advancedProp name="sInitialTemplate" value=""/>
+         <advancedProp name="bTinyTree" value="true"/>
+         <advancedProp name="xsltVersion" value="2.0"/>
+         <advancedProp name="bWarnings" value="true"/>
+         <advancedProp name="bUseDTD" value="false"/>
+         <advancedProp name="iErrorHandling" value="fatal"/>
+      </scenario>
+      <scenario default="yes" name="Scenario2" userelativepaths="yes" externalpreview="no"
+                url="..\..\..\..\EntwicklungsUmgebung\FitNesse\FitNesseRoot\files\testResults\FitNesse.SuiteAcceptanceTests.SuiteWikiPageResponderTests.TestBreadCrumbs\20140205160451_1_0_0_0.xml" htmlbaseurl=""
+                outputurl="..\..\Implementation\DomainTier\Build\Reports\FitNesse\html\output.html" processortype="saxon8" useresolver="yes" profilemode="0" profiledepth="" profilelength="" urlprofilexml="" commandline="" additionalpath=""
+                additionalclasspath="" postprocessortype="none" postprocesscommandline="" postprocessadditionalpath="" postprocessgeneratedext="" validateoutput="no" validator="internal" customvalidator="">
+         <advancedProp name="sInitialMode" value=""/>
          <advancedProp name="bXsltOneIsOkay" value="true"/>
          <advancedProp name="bSchemaAware" value="true"/>
          <advancedProp name="bGenerateByteCode" value="true"/>

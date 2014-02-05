@@ -1,0 +1,31 @@
+@CHARSET "UTF-8";
+/* JUnit-like report style */
+body {font:normal 68% verdana,arial,helvetica;color:#000000}
+table tr td, table tr th {font-size:68%}
+table.details tr th {font-weight:bold;text-align:left;background:#a6caf0}
+table.details tr td {background:#eeeee0}
+p {line-height:1.5em;margin-top:0.5em;margin-bottom:1.0em}
+h1, h2, h3, h4, h5, h6 {font:bold verdana,arial,helvetica}
+h2, h3, h4, h5, h6 {margin-bottom:0.5em}
+h1 {margin:0px 0px 5px;font:165%}
+h2 {margin-top:1em;font:125%}
+h3 {font:115%}
+h4, h5, h6 {font:100%}
+.Error {font-weight:bold;color:red}
+.Failure {font-weight:bold;color:purple}
+
+/* FitNesse reports */
+.pass {background-color:#AAFFAA}
+.fail {background-color:#FFAAAA}
+.error {background-color:#FFFFAA}
+.ignore {background-color:#CCCCCC}
+.fit_stacktrace {font-size:0.7em}
+.fit_label {font-style:italic;color:#C08080}
+.fit_grey {color:#808080}
+.fitnesse {width:95%}
+.setup, .teardown {background:#FFFFF0;margin-bottom:1em;margin-top:-1em;padding:0.5em;border:dotted 1px black}
+.setup .collapsable, .teardown .collapsable {margin-top:-1em}
+.setup .meta, .setup > a, .teardown .meta, .teardown > a, .collapse_rim .meta, .collapse_rim > a {display:none}
+.fitnesse td {padding:2px}
+.fitnesse table {border-collapse:collapse}
+.fitnesse h3 {background-color:#A6CAF0;font-size:100%;padding:5px}
