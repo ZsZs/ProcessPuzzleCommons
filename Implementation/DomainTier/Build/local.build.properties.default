@@ -1,1 +1,15 @@
 # Override variable values according to your local environment specialities
+
+ivy.local.default.root=${ivy.default.ivy.user.dir}/local
+ivy.local.default.ivy.pattern=[module]/[revision]/ivy.xml
+ivy.local.default.artifact.pattern=[module]/[revision]/[artifact].[ext]
+
+ivy.shared.default.root=${ivy.default.ivy.user.dir}/shared
+ivy.shared.default.ivy.pattern=[organisation]/[module]/[revision]/ivy.xml
+ivy.shared.default.artifact.pattern=[organisation]/[module]/[revision]/[artifact].[ext]
+
+ivy.root.dir = c:/ZsZs/EntwicklungsUmgebung/apache-ivy-2.3.0
+cobertura.root.dir = c:/ZsZs/EntwicklungsUmgebung/cobertura-2.0.3
+findbugs.root.dir = c:/ZsZs/EntwicklungsUmgebung/findbugs-2.0.3
+fitnesse.root.dir = C:/ZsZs/EntwicklungsUmgebung/FitNesse
+pmd.root.dir = c:/ZsZs/EntwicklungsUmgebung/pmd-bin-5.0.5

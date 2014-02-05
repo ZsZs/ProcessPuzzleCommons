@@ -1,1 +1,7 @@
 # Override variable values according to your local environment specialities
+
+ivy.root.dir = c:/ZsZs/EntwicklungsUmgebung/apache-ivy-2.3.0
+cobertura.root.dir = c:/ZsZs/EntwicklungsUmgebung/cobertura-2.0.3
+findbugs.root.dir = c:/ZsZs/EntwicklungsUmgebung/findbugs-2.0.3
+fitnesse.root.dir = C:/ZsZs/EntwicklungsUmgebung/FitNesse
+pmd.root.dir = c:/ZsZs/EntwicklungsUmgebung/pmd-bin-5.0.5
