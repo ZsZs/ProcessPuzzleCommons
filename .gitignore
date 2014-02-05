@@ -14,6 +14,7 @@
 /Implementation/DomainTier/Binaries/toolrun.bat.default
 /Implementation/DomainTier/Build/Binaries
 /Implementation/DomainTier/Build/Distribution
+/Implementation/DomainTier/Build/lib
 /Implementation/DomainTier/Build/Libraries
 /Implementation/DomainTier/Build/Reports
 /Implementation/DomainTier/Build/Temp/
@@ -26,6 +27,7 @@
 /Implementation/WebTier/.settings
 /Implementation/WebTier/Binaries/
 /Implementation/WebTier/Build/Distribution/
+/Implementation/WebTier/Build/lib/
 /Implementation/WebTier/Build/Libraries/
 /Implementation/WebTier/Build/Logs/
 /Implementation/WebTier/Build/Reports/
