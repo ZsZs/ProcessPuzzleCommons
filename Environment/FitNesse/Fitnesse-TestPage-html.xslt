@@ -12,7 +12,7 @@
     <html>
       <head>
         <title>FitNesse Test Results for <xsl:value-of select="rootPath"/></title>
-        <link rel="stylesheet" type="text/css" href="Fitnesse-TestPage.css" />
+        <link rel="stylesheet" type="text/css" href="../Fitnesse-TestPage.css" />
       </head>
       <body>
         <h1>FitNesse Tests Results.</h1>
