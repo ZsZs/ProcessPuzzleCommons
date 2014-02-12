@@ -14,7 +14,6 @@
 /Implementation/DomainTier/Binaries/toolrun.bat.default
 /Implementation/DomainTier/Build/Binaries
 /Implementation/DomainTier/Build/Distribution
-/Implementation/DomainTier/Build/lib
 /Implementation/DomainTier/Build/Libraries
 /Implementation/DomainTier/Build/Reports
 /Implementation/DomainTier/Build/Temp/
@@ -23,11 +22,11 @@
 /Implementation/DomainTier/Configuration/hsqlrun.bat
 /Implementation/DomainTier/Configuration/log4j.properties
 /Implementation/DomainTier/Configuration/toolrun.bat
+/Implementation/DomainTier/lib
 /Implementation/DomainTier/Logs/ProcessPuzzle.log
 /Implementation/WebTier/.settings
 /Implementation/WebTier/Binaries/
 /Implementation/WebTier/Build/Distribution/
-/Implementation/WebTier/Build/lib/
 /Implementation/WebTier/Build/Libraries/
 /Implementation/WebTier/Build/Logs/
 /Implementation/WebTier/Build/Reports/
@@ -35,5 +34,6 @@
 /Implementation/WebTier/Build/build.num
 /Implementation/WebTier/Build/local.build.properties
 /Implementation/WebTier/Configuration/log4j.properties
+/Implementation/WebTier/lib/
 /Implementation/WebTier/Logs/ProcessPuzzle.log
 /Implementation/WebTier/TEST-net.jsunit.StandaloneTest.xml
