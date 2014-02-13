@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.processpuzzle</groupId>
-	<artifactId>processpuzzle-commons</artifactId>
+	<artifactId>processpuzzle-commons-domain</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
 	<name>ProcessPuzzle Commons</name>
 	<packaging>jar</packaging>
