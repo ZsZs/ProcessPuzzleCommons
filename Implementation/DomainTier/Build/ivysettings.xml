@@ -6,7 +6,7 @@
     <caches defaultCacheDir="${ivy.default.ivy.user.dir}/cache" />
              
    <resolvers>
-      <filesystem name="projects">
+      <filesystem name="local">
          <artifact pattern="${ivy.local.default.root}/[artifact]-[revision].[ext]" />
          <ivy pattern="${ivy.local.default.root}/[module]-[revision].xml" />
       </filesystem>
