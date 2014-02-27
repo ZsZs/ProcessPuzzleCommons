@@ -31,7 +31,7 @@
       <dependency org="org.apache.commons" name="commons-lang3" rev="3.1" conf="production->*,!sources,!javadoc"/>
       <dependency org="org.apache.commons" name="commons-io" rev="1.3.2" conf="production->*,!sources,!javadoc"/>
       <dependency org="org.codehaus.castor" name="castor-xml" rev="1.3.1" conf="production->*,!sources,!javadoc"/>
-		<dependency org="org.fitnesse" name="fitlibrary" rev="20080812" conf="development->*,!sources,!javadoc"/>
+      <dependency org="org.fitnesse" name="fitlibrary" rev="20080812" conf="development->*,!sources,!javadoc"/>
       <dependency org="org.fitnesse" name="fitnesse" rev="20140201" conf="development->*,!sources,!javadoc"/>
       <dependency org="org.hamcrest" name="hamcrest-all" rev="1.3" conf="production->*,!sources,!javadoc"/>
       <dependency org="org.hibernate" name="hibernate-core" rev="4.2.6.Final" conf="production->*,!sources,!javadoc"/>
@@ -44,7 +44,7 @@
       <dependency org="org.springframework" name="spring-context" rev="3.2.6.RELEASE" conf="production->*,!sources,!javadoc"/>
       <dependency org="org.springframework" name="spring-oxm" rev="3.2.6.RELEASE" conf="production->*,!sources,!javadoc"/>
       <dependency org="org.springframework.ws" name="spring-ws-core" rev="2.1.4.RELEASE" conf="production->*,!sources,!javadoc"/>
-      <dependency org="xml-apis" name="xml-apis" rev="2.0.2" conf="production->*,!sources,!javadoc"/>
+      <dependency org="xml-apis" name="xml-apis" rev="1.3.04" conf="production->*,!sources,!javadoc"/>
 
       <exclude org="maven-plugins" module="maven-cobertura-plugin"/>
       <exclude org="maven-plugins" module="maven-findbugs-plugin"/>
