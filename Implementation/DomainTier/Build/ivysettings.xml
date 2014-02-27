@@ -4,14 +4,14 @@
     <properties file="${ivy.settings.dir}/local.build.properties"/>
     <settings defaultResolver="resolver.chain" />
     <caches defaultCacheDir="${ivy.default.ivy.user.dir}/cache" />
-    
+             
    <resolvers>
+      <filesystem name="projects">
+         <artifact pattern="${ivy.local.default.root}/[artifact]-[revision].[ext]" />
+         <ivy pattern="${ivy.local.default.root}/[module]-[revision].xml" />
+      </filesystem>
+      
       <chain name="resolver.chain">
-         <filesystem name="projects">
-            <artifact pattern="${ivy.local.default.root}/[artifact]-[revision].[ext]" />
-            <ivy pattern="${ivy.local.default.root}/[module]-[revision].xml" />
-         </filesystem>
-         
          <filesystem name="shared">
             <ivy pattern="${ivy.shared.default.root}/[organisation]/[module]/[revision]/ivy.xml" />
             <artifact pattern="${ivy.shared.default.root}/[organisation]/[module]/[revision]/[artifact].[ext]" />
