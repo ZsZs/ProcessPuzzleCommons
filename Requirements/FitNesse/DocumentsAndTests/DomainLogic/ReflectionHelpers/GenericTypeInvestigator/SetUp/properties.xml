@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<properties>
+	<Files>true</Files>
+	<Properties>true</Properties>
+	<RecentChanges>true</RecentChanges>
+	<Refactor>true</Refactor>
+	<Search>true</Search>
+	<Versions>true</Versions>
+	<WhereUsed>true</WhereUsed>
+	<WikiImport>
+		<Source>http://test.processpuzzle.com:80/ProcessPuzzleCommons.DocumentsAndTests.DomainLogic.ReflectionHelpers.GenericTypeInvestigator.SetUp</Source>
+		<LastRemoteModification>20110701221648</LastRemoteModification>
+		<AutoUpdate/>
+	</WikiImport>
+	<saveId>1239013476710</saveId>
+	<ticketId>6393480463165664323</ticketId>
+</properties>

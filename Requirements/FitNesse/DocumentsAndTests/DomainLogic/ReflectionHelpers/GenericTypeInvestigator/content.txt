@@ -1,0 +1,17 @@
+'''Generic Type Investigator''' helps to find generic type parameter of a class or object.
+
+!**> Source code
+!define source (
+package hu.itkodex.commons.fitnesse.generics.domain;
+import java.util.Date;
+import hu.itkodex.commons.generics.!-TestParametrizedClass-!;
+public class !-TestParametrizedSubclass-! extends !-TestParametrizedClass-!<String, Date> {}
+)
+**!
+''Please note that these tests uses hu.itkodex.commons.generics.!-TestParametrizedClass-!<E,F> class.''
+
+|Type Parameter Investigator|
+|'''source code'''|'''parameter index'''|'''parameter type is?'''|
+|${source}|0|java.lang.String|
+|${source}|1|java.util.Date|
+

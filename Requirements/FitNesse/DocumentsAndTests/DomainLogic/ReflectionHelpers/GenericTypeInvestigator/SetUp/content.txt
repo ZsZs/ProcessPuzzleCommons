@@ -1,0 +1,7 @@
+!include -c .LiTest.DocumentsAndTests.DomainLogic.FitNesseHelpers.LoggingConfigurator
+
+|'''add'''|hu.itkodex.commons.fitnesse.CommonsGenericTester|'''as'''|commonsTester|
+|'''select'''|commonsTester|
+
+|Import|
+|hu.itkodex.commons.fitnesse.generics.domain|

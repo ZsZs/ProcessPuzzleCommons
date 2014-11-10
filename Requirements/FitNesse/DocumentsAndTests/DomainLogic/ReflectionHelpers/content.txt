@@ -1,0 +1,3 @@
+Reflesction helpers:
+ * [[Generic type investigator][^GenericTypeInvestigator]] - Determines the type paremetes of a given generic object
+

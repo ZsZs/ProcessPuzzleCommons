@@ -1,0 +1,63 @@
+[[!img-r http://test.processpuzzle.com/files/ProcessPuzzle/ProcessPuzzle-Logo-small.jpg][http://www.processpuzzle.com]]
+!3 !-ProcessPuzzle-! Commons - Project
+'''!-ProcessPuzzle Commons-!''' is a utility library commonly used in various !-ProcessPuzzle-! projects. It contains code snipets found usefull in different domains, such as text handling, using reflection etc.
+
+ * '''[[Getting Started Guide][>GettingStarted]]''' - provides an overview and step by step guide for easy configure you first browser UI
+ * '''[[Demos and Examples][>DemosAndExamples]]''' - provides immediate and interactive introduction to functionality and usability
+ * '''[[Documentation and Acceptance Tests][>DocumentsAndTests]]''' - application documentation and acceptance tests defined by the product owner
+ * '''[[Download][https://github.com/ZsZs/ProcessPuzzleCommons]]''' - binaries and source code
+ * '''[[Build Results][http://build.processpuzzle.com/dashboard/tab/dashboard]]''' - of continuous integration, such as test- results, coverage and static code analysis
+ * '''[[Product Backlog][>ProductBacklog]]''' - used to manage - define, estimate and prioritize - product owner's needs
+ * '''[[Sprint Backlogs][>SpringBacklogs]]''' - used to manage - define, estimate and prioritize - developer's tasks
+ * '''[[Developers][>DeveloperList]]''' - who undertake serious responsibility in this project
+
+!***> Project specific variables
+!define COMMONS_DOMAIN_TIER_DIR {ProcessPuzzleCommons\Implementation\DomainTier}
+!define ApplicationConfigurationDescriptor {classpath:com/processpuzzle/sharedfixtures/domaintier/configuration_descriptor.xml}
+!define DatabaseType {HSQLDB}
+!define DatabaseConnection {mem:ENYV_TEST_DB}
+!define DatabaseUser {sa}
+!define DatabasePassword {}
+***!
+
+!***> Project specific test runner
+!define TEST_RUNNER {fitlibrary.suite.FitLibraryServer}
+***!
+
+!***> Project specific Class Path
+'''!-ProcessPuzzleCommons-!''' compiled classes
+!path ${ViewPath}\${COMMONS_DOMAIN_TIER_DIR}\${CompiledClasses}
+
+'''!-ProcessPuzzle-!''' framework libraries
+Not needed by this component.
+
+'''Third party libraries for !-ProcessPuzzleCommons-! domain tier:'''
+!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\Apache Commons\*.jar
+!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\Castor\*.jar
+!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\DOM4J\*.jar
+!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\FOP\*.jar
+!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\Google-Collect\*.jar
+!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\Hamcrest\*.jar
+!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\Hibernate\*.jar
+!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\JAXB-RI\*.jar
+!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\Jaxen\*.jar
+!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\JiBX\*.jar
+!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\jTDS\*.jar
+!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\Log4J\*.jar
+!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\SLF4J\*.jar
+!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\Spring\*.jar
+!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\Xerces\*.jar
+!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\Xalan\*.jar
+
+'''HSQL JDBC dirver'''
+!path ${ViewPath}\${DEVELOPMENT_LIBRARIES_DIR}\HSQL\*.jar
+
+'''Oracle Thin JDBC dirver'''
+!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\Oracle-JDBC\ojdbc14.jar
+
+'''!-HtmlUnit-! for testing Browser UI'''
+!path ${ViewPath}\${DEVELOPMENT_LIBRARIES_DIR}\HtmlUnit\*.jar
+
+'''tools.jar needed for Java Compiler API'''
+!path ${JavaHome}\lib\tools.jar
+***!

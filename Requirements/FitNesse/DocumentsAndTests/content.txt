@@ -1,0 +1,3 @@
+!3 !-ProcessPuzzle-! Commons - Documentation and Tests
+
+At the moment '''!-ProcessPuzzle-! - Commons''' does have only [[domain tier components][^DomainLogic]].

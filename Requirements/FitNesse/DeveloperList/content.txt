@@ -1,0 +1,7 @@
+!3 !-ProcessPuzzle Commons-! - Authors
+
+This software consists of voluntary contributions made by many individuals. For exact contribution history, see the revision history and logs, available at https://github.com/ZsZs/ProcessPuzzleCommons
+
+Among others we'd like to special thank the contribution of:
+ * '''[[Peter Krima][http://www.linkedin.com/pub/peter-krima/20/351/748]]''' - !-Java-! developer
+ * '''[[Zsolt Zsuffa][http://www.linkedin.com/in/zsoltzsuffa]]''' - software architect, !-Java-! developer
