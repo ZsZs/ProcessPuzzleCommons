@@ -13,6 +13,7 @@
 
 !***> Project specific variables
 !define COMMONS_DOMAIN_TIER_DIR {ProcessPuzzleCommons\Implementation\DomainTier}
+!define LITEST_DOMAIN_TIER_DIR {LiTest\Implementation\DomainTier}
 !define ApplicationConfigurationDescriptor {classpath:com/processpuzzle/sharedfixtures/domaintier/configuration_descriptor.xml}
 !define DatabaseType {HSQLDB}
 !define DatabaseConnection {mem:ENYV_TEST_DB}
@@ -27,36 +28,20 @@
 !***> Project specific Class Path
 '''!-ProcessPuzzleCommons-!''' compiled classes
 !path ${ViewPath}\${COMMONS_DOMAIN_TIER_DIR}\${CompiledClasses}
+!path ${ViewPath}\${COMMONS_DOMAIN_TIER_DIR}\${CompiledTestClasses}
+!path ${MavenRepository}\com\processpuzzle\processpuzzle-litest-domain\0.3.0-SNAPSHOT\*.jar
+
 
 '''!-ProcessPuzzle-!''' framework libraries
 Not needed by this component.
 
 '''Third party libraries for !-ProcessPuzzleCommons-! domain tier:'''
-!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\Apache Commons\*.jar
-!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\Castor\*.jar
-!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\DOM4J\*.jar
-!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\FOP\*.jar
-!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\Google-Collect\*.jar
-!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\Hamcrest\*.jar
-!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\Hibernate\*.jar
-!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\JAXB-RI\*.jar
-!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\Jaxen\*.jar
-!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\JiBX\*.jar
-!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\jTDS\*.jar
-!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\Log4J\*.jar
-!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\SLF4J\*.jar
-!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\Spring\*.jar
-!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\Xerces\*.jar
-!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\Xalan\*.jar
 
 '''HSQL JDBC dirver'''
-!path ${ViewPath}\${DEVELOPMENT_LIBRARIES_DIR}\HSQL\*.jar
+
 
 '''Oracle Thin JDBC dirver'''
-!path ${ViewPath}\${PRODUCTION_LIBRARIES_DIR}\Oracle-JDBC\ojdbc14.jar
 
-'''!-HtmlUnit-! for testing Browser UI'''
-!path ${ViewPath}\${DEVELOPMENT_LIBRARIES_DIR}\HtmlUnit\*.jar
 
 '''tools.jar needed for Java Compiler API'''
 !path ${JavaHome}\lib\tools.jar

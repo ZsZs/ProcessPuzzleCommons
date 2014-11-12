@@ -10,11 +10,6 @@
 	<Suites/>
 	<Versions/>
 	<WhereUsed/>
-	<WikiImport>
-		<Source>http://test.processpuzzle.com:80/ProcessPuzzleCommons.DocumentsAndTests.DomainLogic.ReflectionHelpers</Source>
-		<LastRemoteModification>20110402170350</LastRemoteModification>
-		<AutoUpdate/>
-	</WikiImport>
 	<saveId>1238228972405</saveId>
 	<ticketId>-8181406097844594627</ticketId>
 </properties>

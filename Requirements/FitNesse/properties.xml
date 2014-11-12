@@ -8,9 +8,4 @@
 	<Search>true</Search>
 	<Versions>true</Versions>
 	<WhereUsed>true</WhereUsed>
-	<WikiImport>
-		<Source>http://test.processpuzzle.com:80/ProcessPuzzleCommons</Source>
-		<IsRoot/>
-		<AutoUpdate/>
-	</WikiImport>
 </properties>
