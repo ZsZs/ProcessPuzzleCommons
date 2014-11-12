@@ -37,3 +37,4 @@
 /Implementation/WebTier/lib/
 /Implementation/WebTier/Logs/ProcessPuzzle.log
 /Implementation/WebTier/TEST-net.jsunit.StandaloneTest.xml
+/Requirements/FitNesse/*.zip
