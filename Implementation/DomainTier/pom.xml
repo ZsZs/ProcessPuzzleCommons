@@ -56,11 +56,7 @@
    </profiles>
 
    <dependencies>
-      <!-- <dependency>
-         <groupId>org.apache.ant</groupId>
-         <artifactId>ant</artifactId>
-        <scope>provided</scope>
-      </dependency> -->
+      <!-- <dependency> <groupId>org.apache.ant</groupId> <artifactId>ant</artifactId> <scope>provided</scope> </dependency> -->
 
       <dependency>
          <groupId>org.codehaus.castor</groupId>
@@ -119,6 +115,12 @@
       </dependency>
 
       <dependency>
+         <groupId>javax.transaction</groupId>
+         <artifactId>jta</artifactId>
+         <version>1.1</version>
+      </dependency>
+
+      <dependency>
          <groupId>junit</groupId>
          <artifactId>junit</artifactId>
          <version>4.11</version>
@@ -146,17 +148,44 @@
          <scope>compile</scope>
       </dependency>
 
+<!-- 
+      <dependency>
+         <groupId>org.hibernate</groupId>
+         <artifactId>hibernate-annotations</artifactId>
+         <version>3.5.6-Final</version>
+      </dependency>
+ -->
+
       <dependency>
          <groupId>org.hibernate</groupId>
          <artifactId>hibernate-core</artifactId>
-         <version>4.2.6.Final</version>
+         <version>4.3.7.Final</version>
          <scope>compile</scope>
+      </dependency>
+
+      <dependency>
+         <groupId>org.hibernate</groupId>
+         <artifactId>hibernate-ehcache</artifactId>
+         <version>4.3.7.Final</version>
+      </dependency>
+
+      <dependency>
+         <groupId>org.hibernate.common</groupId>
+         <artifactId>hibernate-commons-annotations</artifactId>
+         <version>4.0.5.Final</version>
       </dependency>
 
       <dependency>
          <groupId>org.hsqldb</groupId>
          <artifactId>hsqldb</artifactId>
          <version>2.2.8</version>
+         <scope>compile</scope>
+      </dependency>
+
+      <dependency>
+         <groupId>org.jboss.logging</groupId>
+         <artifactId>jboss-logging</artifactId>
+         <version>3.1.4.GA</version>
          <scope>compile</scope>
       </dependency>
 
