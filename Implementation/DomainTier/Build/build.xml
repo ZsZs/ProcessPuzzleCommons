@@ -15,4 +15,10 @@
 			<property name="cobertura.data.file" value="${project.root}/${cobertura.data.file}" />
 		</ant>
 	</target>
+	
+   <target name="domaintier-build-distribute">
+      <ant dir="${project.root}" antfile="${common.build.path}/${common.domaintier.build.file}" target="distribute-only">
+         <property name="cobertura.data.file" value="${project.root}/${cobertura.data.file}" />
+      </ant>
+   </target>
 </project>
