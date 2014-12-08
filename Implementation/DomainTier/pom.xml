@@ -3,7 +3,7 @@
 
    <groupId>com.processpuzzle</groupId>
    <artifactId>processpuzzle-commons-domain</artifactId>
-   <version>0.1.0-SNAPSHOT</version>
+   <version>0.1.1-SNAPSHOT</version>
    <name>ProcessPuzzle Commons</name>
    <packaging>jar</packaging>
    <description>Simple utility services commonly used by various ProcessPuzzle framework components.</description>
