@@ -48,7 +48,7 @@
       <dependency org="org.springframework" name="spring-oxm" rev="3.2.6.RELEASE" conf="production->*,!sources,!javadoc" />
       <dependency org="org.springframework.ws" name="spring-ws-core" rev="2.1.4.RELEASE" conf="production->*,!sources,!javadoc" />
       <dependency org="stax" name="stax" rev="1.2.0" conf="production->*,!sources,!javadoc" />
-      <dependency org="xml-apis" name="xml-apis" rev="1.3.04" conf="production->*,!sources,!javadoc" />
+      <dependency org="xml-apis" name="xml-apis" rev="1.4.01" conf="production->*,!sources,!javadoc" />
 
       <exclude org="org.apache.ant" module="ant" />
       <exclude org="maven-plugins" module="maven-cobertura-plugin" />
