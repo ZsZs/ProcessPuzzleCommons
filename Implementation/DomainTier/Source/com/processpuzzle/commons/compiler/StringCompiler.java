@@ -123,8 +123,6 @@ public class StringCompiler<T> {
     * Thread safety: this method is thread safe if the <var>javaSource</var> and <var>diagnosticsList</var> are isolated
     * to this thread.
     * 
-    * @param qualifiedClassName
-    *           The fully qualified class name.
     * @param javaSource
     *           Complete java source, including a package statement and a class, interface, or annotation declaration.
     * @param diagnosticsList

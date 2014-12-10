@@ -30,7 +30,7 @@ public abstract class ClassScope // this class is not instantiable
    /**
     * Given a class loader instance, returns all classes currently loaded by that class loader.
     * 
-    * @param defining
+    * @param loader
     *           class loader to inspect [may not be null]
     * @return Class array such that every Class has 'loader' as its defining class loader [never null, may be empty]
     * @throws RuntimeException
@@ -71,7 +71,7 @@ public abstract class ClassScope // this class is not instantiable
    /**
     * A convenience multi-loader version of {@link #getLoadedClasses(ClassLoader)}.
     * 
-    * @param an
+    * @param loaders
     *           array of defining class loaders to inspect [may not be null]
     * @return Class array [never null, may be empty]
     * @throws RuntimeException

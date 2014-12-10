@@ -1357,7 +1357,7 @@ protected LinkedList<Diff> diff_compute(String text1, String text2,
    * @param text1 Source string for the diff.
    * @param delta Delta text.
    * @return Array of diff tuples or null if invalid.
-   * @throw IllegalArgumentException If invalid input.
+   * @throws IllegalArgumentException If invalid input.
    */
   public LinkedList<Diff> diff_fromDelta(String text1, String delta)
       throws IllegalArgumentException {

@@ -39,8 +39,6 @@ public abstract class ClassLoaderRegistry {// this class is not instantiable
     * Returns an enumeration of all class loaders currently registered in the JVM. Note that this may not include all
     * class loaders ever' created because this registry uses weak keys as class loader references.
     * 
-    * @param ClassLoader
-    *           array [never null].
     */
    public static ClassLoader[] getClassLoaders() {
       final List /* ClassLoader */<ClassLoader>resultList = new LinkedList<ClassLoader>();
