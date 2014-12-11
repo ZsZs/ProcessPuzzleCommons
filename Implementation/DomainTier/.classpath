@@ -10,7 +10,7 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.apache.ivyde.eclipse.cpcontainer.IVYDE_CONTAINER/?project=ProcessPuzzleCommons+-+Domain+Tier&amp;ivyXmlPath=Build%2Fivy.xml&amp;confs=*">
+	<classpathentry exported="true" kind="con" path="org.apache.ivyde.eclipse.cpcontainer.IVYDE_CONTAINER/?project=ProcessPuzzleCommons+-+Domain+Tier&amp;ivyXmlPath=Build%2Fivy.xml&amp;confs=*">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
 		</attributes>
